@@ -1,6 +1,12 @@
 {
   // Common plugins
-  "cSpell.words": [],
+  "dotnet-test-explorer.testProjectPath": "src/Enum.Generator.Tests/Enum.Generator.Tests.csproj",
+  "cSpell.words": [
+    "cobertura",
+    "codecov",
+    "enumgeneratorcsharp",
+    "nuget"
+  ],
   // Search settings
   "search.useIgnoreFiles": false,
   "search.exclude": {
