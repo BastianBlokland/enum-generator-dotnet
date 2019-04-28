@@ -20,14 +20,14 @@ namespace Enum.Generator.Core.Exporter
         /// Thrown when a invalid namespace identifier is given.
         /// </exception>
         /// <param name="enumDefinition">Enum to generate c# source-code for</param>
-        /// <param name="namespace">Namespace to add the enum to</param>
+        /// <param name="namespace">Optional namespace to add the enum to</param>
         /// <param name="indentMode">Mode to use for indenting</param>
         /// <param name="spaceIndentSize">When indenting with spaces this controls how many</param>
         /// <param name="newlineMode">Mode to use for ending lines</param>
         /// <returns>String containing the genenerated c# sourcecode</returns>
         public static string Export(
             this EnumDefinition enumDefinition,
-            string @namespace,
+            string @namespace = null,
             CodeBuilder.IndentMode indentMode = CodeBuilder.IndentMode.Spaces,
             int spaceIndentSize = 4,
             CodeBuilder.NewlineMode newlineMode = CodeBuilder.NewlineMode.Unix)
@@ -35,43 +35,58 @@ namespace Enum.Generator.Core.Exporter
             if (enumDefinition == null)
                 throw new ArgumentNullException(nameof(enumDefinition));
 
-            if (!IdentifierValidator.ValidateNamespace(@namespace))
-                throw new InvalidNamespaceException(@namespace);
-
-            var assemblyName = typeof(CSharpExporter).Assembly.GetName();
             var builder = new CodeBuilder(indentMode, spaceIndentSize, newlineMode);
-            builder.AddHeader(assemblyName);
+            builder.AddHeader();
             builder.WriteEmptyLine();
             builder.WriteLine("using System.CodeDom.Compiler;");
             builder.WriteEmptyLine();
+
+            if (string.IsNullOrEmpty(@namespace))
+                builder.AddEnum(enumDefinition);
+            else
+                builder.AddNamespace(@namespace, b => b.AddEnum(enumDefinition));
+
+            return builder.Build();
+        }
+
+        private static void AddNamespace(
+            this CodeBuilder builder,
+            string @namespace,
+            Action<CodeBuilder> addContent)
+        {
+            if (!IdentifierValidator.ValidateNamespace(@namespace))
+                throw new InvalidNamespaceException(@namespace);
+
             builder.WriteLine($"namespace {@namespace}");
             builder.StartScope();
+
+            addContent?.Invoke(builder);
+
+            builder.EndScope();
+        }
+
+        private static void AddEnum(this CodeBuilder builder, EnumDefinition enumDefinition)
+        {
+            var assemblyName = typeof(CSharpExporter).Assembly.GetName();
+            if (!string.IsNullOrEmpty(enumDefinition.Comment))
+                builder.AddSummary(enumDefinition.Comment);
+            builder.WriteLine($"[GeneratedCode(\"{assemblyName.Name}\", \"{assemblyName.Version}\")]");
+            builder.WriteLine($"public enum {enumDefinition.Identifier}");
+            builder.StartScope();
+
+            var first = true;
+            foreach (var entry in enumDefinition.Entries)
             {
-                if (!string.IsNullOrEmpty(enumDefinition.Comment))
-                    builder.AddSummary(enumDefinition.Comment);
-                builder.WriteLine($"[GeneratedCode(\"{assemblyName.Name}\", \"{assemblyName.Version}\")]");
-                builder.WriteLine($"public enum {enumDefinition.Identifier}");
-                builder.StartScope();
-                {
-                    var first = true;
-                    foreach (var entry in enumDefinition.Entries)
-                    {
-                        if (!first)
-                            builder.WriteEmptyLine();
-                        first = false;
+                if (!first)
+                    builder.WriteEmptyLine();
+                first = false;
 
-                        if (!string.IsNullOrEmpty(entry.Comment))
-                            builder.AddSummary(entry.Comment);
-                        builder.WriteLine($"{entry.Name} = {entry.Value},");
-                    }
-                }
-
-                builder.EndScope();
+                if (!string.IsNullOrEmpty(entry.Comment))
+                    builder.AddSummary(entry.Comment);
+                builder.WriteLine($"{entry.Name} = {entry.Value},");
             }
 
             builder.EndScope();
-
-            return builder.Build();
         }
 
         private static void StartScope(this CodeBuilder builder)
@@ -99,8 +114,9 @@ namespace Enum.Generator.Core.Exporter
             builder.WriteLine("/// </summary>");
         }
 
-        private static void AddHeader(this CodeBuilder builder, AssemblyName assemblyName)
+        private static void AddHeader(this CodeBuilder builder)
         {
+            var assemblyName = typeof(CSharpExporter).Assembly.GetName();
             builder.WriteLine("//------------------------------------------------------------------------------");
             builder.WriteLine("<auto-generated>", prefix: "// ");
             builder.WriteLine($"Generated by: {assemblyName.Name} - {assemblyName.Version}", prefix: "// ", additionalIndent: 1);
