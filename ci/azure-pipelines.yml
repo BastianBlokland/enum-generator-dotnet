@@ -20,7 +20,7 @@ steps:
   displayName: 'Publish'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-- script: ./ci/report-coverage.sh "$(enumgeneratorcsharp-codecov)"
+- script: ./ci/report-coverage.sh "$(enumgeneratordotnet-codecov)"
   displayName: 'Publish test coverage to codecov.io'
   condition: always()
 

@@ -13,7 +13,7 @@
     <Description>Framework used by the enum generator cli</Description>
     <Authors>Bastian Blokland</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-csharp</RepositoryUrl>
+    <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
 

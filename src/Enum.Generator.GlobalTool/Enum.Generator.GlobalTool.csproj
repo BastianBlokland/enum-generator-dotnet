@@ -17,7 +17,7 @@
     <Description>Global-tool that can be used to create a c# enum based on a json file</Description>
     <Authors>Bastian Blokland</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-csharp</RepositoryUrl>
+    <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
 

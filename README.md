@@ -1,4 +1,4 @@
-# Enum-Generator-CSharp
+# Enum-Generator-Dotnet
 
 **Work In Progress**
 
