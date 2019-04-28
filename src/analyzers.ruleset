@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Root ruleset" Description="C# Ruleset" ToolsVersion="14.0">
+
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+
+    <!-- 'Curly brackets must not be omitted' -->
+    <Rule Id="SA1503" Action="None" />
+
+    <!-- 'The file header is missing or not located at the top of the file' -->
+    <Rule Id="SA1633" Action="None" />
+
+    <!-- 'Enable XML documentation output' -->
+    <Rule Id="SA1652" Action="None" />
+
+    <!-- 'Parameter must not span multiple lines' -->
+    <Rule Id="SA1118" Action="None" />
+
+    <!-- 'File may only contain a single class' -->
+    <Rule Id="SA1402" Action="None" />
+
+    <!-- 'File name must match first type name' -->
+    <Rule Id="SA1649" Action="None" />
+
+    <!-- 'The property's documentation summary text must begin with: 'Gets'' -->
+    <Rule Id="SA1623" Action="None" />
+
+    <!-- 'Element return value must be documented' -->
+    <Rule Id="SA1615" Action="None" />
+
+    <!-- 'Using directives must be ordered alphabetically by the namespaces' -->
+    <Rule Id="SA1210" Action="None" />
+
+    <!-- 'Opening parenthesis must not be preceded by a space' -->
+    <!-- Reason is that StyleCop doesn't understand new c#7 tuples yet and compains -->
+    <Rule Id="SA1008" Action="None" />
+
+    <!-- 'Closing parenthesis must be followed by a space' -->
+    <!-- Reason is that StyleCop doesn't understand new c#7 tuples yet and compains -->
+    <Rule Id="SA1009" Action="None" />
+
+  </Rules>
+
+  <Rules AnalyzerId="FxCop.Analyzers" RuleNamespace="FxCop.Analyzers">
+
+    <!-- 'Identifiers should not contain underscores' -->
+    <Rule Id="CA1707" Action="None" />
+
+    <!-- 'Override equals and operator equals on value types' -->
+    <Rule Id="CA1815" Action="None" />
+
+    <!-- 'Identifiers should not match keywords' -->
+    <Rule Id="CA1716" Action="None" />
+
+    <!-- 'Implement standard exception constructors' -->
+    <Rule Id="CA1032" Action="None" />
+
+  </Rules>
+
+</RuleSet>

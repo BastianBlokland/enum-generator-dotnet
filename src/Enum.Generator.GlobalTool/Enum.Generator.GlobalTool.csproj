@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>../analyzers.ruleset</CodeAnalysisRuleSet>
+
+    <AssemblyName>Enum.Generator.GlobalTool</AssemblyName>
+    <RootNamespace>Enum.Generator.GlobalTool</RootNamespace>
+
+    <PackageId>Enum.Generator.GlobalTool</PackageId>
+    <ToolCommandName>enum-generator</ToolCommandName>
+    <PackAsTool>true</PackAsTool>
+
+    <Title>Enum generator global tool</Title>
+    <Description>Global-tool that can be used to create a c# enum based on a json file</Description>
+    <Authors>Bastian Blokland</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Project reference -->
+    <ProjectReference Include="../Enum.Generator.Cli/Enum.Generator.Cli.csproj" />
+
+    <!-- Sourcelink -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+
+    <!-- Static code analysis -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <AdditionalFiles Include="../stylecop.json" />
+
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <!-- License -->
+    <None Include="../../LICENSE" Pack="true" PackagePath="" />
+
+    <!-- Documentation -->
+    <None Include="readme.md" Pack="true" PackagePath="" />
+
+  </ItemGroup>
+</Project>
