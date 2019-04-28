@@ -60,6 +60,9 @@ namespace Enum.Generator.Core.Utilities
 
             string[] GetWords(string input)
             {
+                // Separate by spaces characters (all forms of spaces).
+                input = Regex.Replace(input, "[\u202F\u00A0\u2000\u2001\u2003]", " ");
+
                 // Separate by casing difference (Pascal-casing).
                 input = Regex.Replace(input, "[a-z][A-Z]", m => $"{m.Value[0]} {m.Value[1]}");
 
