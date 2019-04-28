@@ -8,6 +8,21 @@ namespace Enum.Generator.Core.Utilities
     public static class IdentifierValidator
     {
         /// <summary>
+        /// Validate if given identifier can be used as a namespace.
+        /// </summary>
+        /// <param name="identifier">String to validate</param>
+        /// <returns>'True' if valid, otherwise 'False'</returns>
+        public static bool ValidateNamespace(string identifier)
+        {
+            // Namespace cannot be empty.
+            if (string.IsNullOrEmpty(identifier))
+                return false;
+
+            // Validate all the parts of the namespace.
+            return identifier.Split('.').All(Validate);
+        }
+
+        /// <summary>
         /// Validate if given string can be used as an identifier.
         /// </summary>
         /// <param name="identifier">String to validate</param>
