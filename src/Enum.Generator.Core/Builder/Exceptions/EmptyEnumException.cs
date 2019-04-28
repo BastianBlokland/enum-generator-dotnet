@@ -8,7 +8,7 @@ namespace Enum.Generator.Core.Builder.Exceptions
     public sealed class EmptyEnumException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyEnumException"/> class
+        /// Initializes a new instance of the <see cref="EmptyEnumException"/> class.
         /// </summary>
         /// <param name="enumName">Name of the enum that has no values</param>
         public EmptyEnumException(string enumName)

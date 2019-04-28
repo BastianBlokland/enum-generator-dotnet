@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 
 using Enum.Generator.Core.Definition;
+using Enum.Generator.Core.Utilities;
 
 namespace Enum.Generator.Core.Builder
 {
@@ -17,11 +18,14 @@ namespace Enum.Generator.Core.Builder
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumBuilder"/> class
         /// </summary>
+        /// <exception cref="Exceptions.InvalidEnumNameException">
+        /// Thrown when name is not a valid identifier.
+        /// </exception>
         /// <param name="name">Name of the enum</param>
         public EnumBuilder(string name)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException($"Invalid enum-name: '{name}'", nameof(name));
+            if (!IdentifierValidator.Validate(name))
+                throw new Exceptions.InvalidEnumNameException(this.name);
 
             this.name = name;
         }
@@ -37,13 +41,16 @@ namespace Enum.Generator.Core.Builder
         /// <exception cref="Exceptions.DuplicateEnumValueException">
         /// Thrown when value is not unique.
         /// </exception>
+        /// <exception cref="Exceptions.InvalidEnumEntryNameException">
+        /// Thrown when name is not a valid identifier.
+        /// </exception>
         /// <param name="name">Name of the entry</param>
         /// <param name="value">Value of the entry</param>
         /// <param name="comment">Optional comment about the entry</param>
         public void PushEntry(string name, int value, string comment = null)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException($"Invalid enum-entry name: '{name}'", nameof(name));
+            if (!IdentifierValidator.Validate(name))
+                throw new Exceptions.InvalidEnumEntryNameException(this.name, name);
 
             if (this.entries.Any(e => e.Value == value))
                 throw new Exceptions.DuplicateEnumValueException(this.name, value);

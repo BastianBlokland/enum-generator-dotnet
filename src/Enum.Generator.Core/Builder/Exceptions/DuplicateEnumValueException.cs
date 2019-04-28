@@ -8,7 +8,7 @@ namespace Enum.Generator.Core.Builder.Exceptions
     public sealed class DuplicateEnumValueException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DuplicateEnumValueException"/> class
+        /// Initializes a new instance of the <see cref="DuplicateEnumValueException"/> class.
         /// </summary>
         /// <param name="enumName">Name of the enum with the duplicated value</param>
         /// <param name="value">Value that is duplicated</param>

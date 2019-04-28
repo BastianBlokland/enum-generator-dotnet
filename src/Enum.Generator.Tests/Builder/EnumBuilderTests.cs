@@ -1,14 +1,25 @@
-using System;
 using Xunit;
 
 using Enum.Generator.Core.Builder;
 using Enum.Generator.Core.Builder.Exceptions;
-using Enum.Generator.Core.Definition;
 
 namespace Enum.Generator.Tests.Builder
 {
     public sealed class EnumBuilderTests
     {
+        [Fact]
+        public void ThrowsIfEnumHasInvalidName() => Assert.Throws<InvalidEnumNameException>(() =>
+        {
+            new EnumBuilder("0TestEnum");
+        });
+
+        [Fact]
+        public void ThrowsIfEnumEntryHasInvalidName() => Assert.Throws<InvalidEnumEntryNameException>(() =>
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("0A", 1);
+        });
+
         [Fact]
         public void ThrowsIfEnumHasDuplicateValue() => Assert.Throws<DuplicateEnumValueException>(() =>
         {
