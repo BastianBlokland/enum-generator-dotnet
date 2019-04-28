@@ -1,0 +1,48 @@
+# --------------------------------------------------------------------------------------------------
+# Azure CI pipeline.
+# More info: https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+# --------------------------------------------------------------------------------------------------
+
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+- group: ci-keys
+
+steps:
+- script: ./ci/test.sh
+  displayName: 'Test'
+
+- script: ./ci/pack.sh $(Build.BuildId) $(Build.SourceVersion) $(Build.SourceBranchName)
+  displayName: 'Pack'
+
+- script: ./ci/publish.sh "$(azure-nuget-ci)"
+  displayName: 'Publish'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- script: ./ci/report-coverage.sh "$(enumgeneratorcsharp-codecov)"
+  displayName: 'Publish test coverage to codecov.io'
+  condition: always()
+
+- task: PublishTestResults@2
+  displayName: 'Publish test results'
+  inputs:
+    testResultsFormat: xUnit
+    testResultsFiles: '$(System.DefaultWorkingDirectory)/artifacts/xunit.results.xml'
+  condition: always()
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish test coverage to azure'
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/artifacts/coverage.cobertura.xml'
+    failIfCoverageEmpty: true
+  condition: always()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  inputs:
+    artifactName: 'artifacts'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/artifacts'
+    parallel: true
+  condition: always()
