@@ -38,11 +38,14 @@ namespace Enum.Generator.Core.Builder
         /// <summary>
         /// Add a entry to the enum.
         /// </summary>
-        /// <exception cref="Exceptions.DuplicateEnumValueException">
-        /// Thrown when value is not unique.
-        /// </exception>
         /// <exception cref="Exceptions.InvalidEnumEntryNameException">
         /// Thrown when name is not a valid identifier.
+        /// </exception>
+        /// <exception cref="Exceptions.DuplicateEnumEntryNameException">
+        /// Thrown when name is not unique.
+        /// </exception>
+        /// <exception cref="Exceptions.DuplicateEnumEntryValueException">
+        /// Thrown when value is not unique.
         /// </exception>
         /// <param name="name">Name of the entry</param>
         /// <param name="value">Value of the entry</param>
@@ -52,8 +55,11 @@ namespace Enum.Generator.Core.Builder
             if (!IdentifierValidator.Validate(name))
                 throw new Exceptions.InvalidEnumEntryNameException(this.name, name);
 
+            if (this.entries.Any(e => e.Name == name))
+                throw new Exceptions.DuplicateEnumEntryNameException(this.name, name);
+
             if (this.entries.Any(e => e.Value == value))
-                throw new Exceptions.DuplicateEnumValueException(this.name, value);
+                throw new Exceptions.DuplicateEnumEntryValueException(this.name, value);
 
             this.entries.Add(new EnumEntry(name, value, comment));
         }

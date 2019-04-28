@@ -21,7 +21,16 @@ namespace Enum.Generator.Tests.Builder
         });
 
         [Fact]
-        public void ThrowsIfEnumHasDuplicateValue() => Assert.Throws<DuplicateEnumValueException>(() =>
+        public void ThrowsIfEnumHasDuplicateEntryName() => Assert.Throws<DuplicateEnumEntryNameException>(() =>
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("A", 1);
+            builder.PushEntry("B", 2);
+            builder.PushEntry("B", 3);
+        });
+
+        [Fact]
+        public void ThrowsIfEnumHasDuplicateEntryValue() => Assert.Throws<DuplicateEnumEntryValueException>(() =>
         {
             var builder = new EnumBuilder("TestEnum");
             builder.PushEntry("A", 1);
