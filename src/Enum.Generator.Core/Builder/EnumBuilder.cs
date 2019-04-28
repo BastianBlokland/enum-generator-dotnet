@@ -36,6 +36,20 @@ namespace Enum.Generator.Core.Builder
         public string Comment { get; set; }
 
         /// <summary>
+        /// Does this builder contain an entry with given name.
+        /// </summary>
+        /// <param name="name">Name to check</param>
+        /// <returns>'True' if found, otherwise 'False'</returns>
+        public bool HasEntry(string name) => this.entries.Any(e => e.Name == name);
+
+        /// <summary>
+        /// Does this builder contain an entry with given value.
+        /// </summary>
+        /// <param name="value">Value to check</param>
+        /// <returns>'True' if found, otherwise 'False'</returns>
+        public bool HasEntry(int value) => this.entries.Any(e => e.Value == value);
+
+        /// <summary>
         /// Add a entry to the enum.
         /// </summary>
         /// <exception cref="Exceptions.InvalidEnumEntryNameException">

@@ -51,6 +51,13 @@ namespace Enum.Generator.Tests.Builder
             var builder = new EnumBuilder("TestEnum");
             builder.PushEntry("A", 1);
             builder.PushEntry("B", 2);
+
+            Assert.True(builder.HasEntry("A"));
+            Assert.True(builder.HasEntry("B"));
+
+            Assert.True(builder.HasEntry(1));
+            Assert.True(builder.HasEntry(2));
+
             var enumDefinition = builder.Build();
 
             Assert.True(enumDefinition.HasEntry("A"));
