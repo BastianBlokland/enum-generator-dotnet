@@ -39,13 +39,6 @@ namespace Enum.Generator.Tests.Builder
         });
 
         [Fact]
-        public void ThrowsIfEnumIsEmpty() => Assert.Throws<EmptyEnumException>(() =>
-        {
-            var builder = new EnumBuilder("TestEnum");
-            var enumDefinition = builder.Build();
-        });
-
-        [Fact]
         public void AllEntriesArePresent()
         {
             var builder = new EnumBuilder("TestEnum");

@@ -36,6 +36,11 @@ namespace Enum.Generator.Core.Builder
         public string Comment { get; set; }
 
         /// <summary>
+        /// Current count of entries added to the builder.
+        /// </summary>
+        public int EntryCount => this.entries.Count;
+
+        /// <summary>
         /// Does this builder contain an entry with given name.
         /// </summary>
         /// <param name="name">Name to check</param>
@@ -81,16 +86,8 @@ namespace Enum.Generator.Core.Builder
         /// <summary>
         /// Build a immutable <see cref="EnumDefinition"/> from the current state of the builder.
         /// </summary>
-        /// <exception cref="Exceptions.EmptyEnumException">
-        /// Thrown when enum has no values.
-        /// </exception>
         /// <returns>Newly created immutable enum-definition</returns>
-        public EnumDefinition Build()
-        {
-            if (this.entries.Count == 0)
-                throw new Exceptions.EmptyEnumException(this.name);
-
-            return new EnumDefinition(this.name, this.entries.ToImmutableArray(), this.Comment);
-        }
+        public EnumDefinition Build() =>
+            new EnumDefinition(this.name, this.entries.ToImmutableArray(), this.Comment);
     }
 }
