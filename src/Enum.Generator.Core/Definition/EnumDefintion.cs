@@ -19,8 +19,7 @@ namespace Enum.Generator.Core.Definition
             if (entries == null)
                 throw new ArgumentNullException(nameof(entries));
 
-            // Verify that the values at least contain 1 entry and no duplicates
-            Debug.Assert(entries.Length > 0, "Enum must have at least one value");
+            // Verify that the values contain no duplicates
             Debug.Assert(entries.Select(v => v.Value).IsUnique(), "Enum values must be unique");
 
             this.Identifier = identifier;

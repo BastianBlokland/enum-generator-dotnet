@@ -39,25 +39,30 @@ namespace Enum.Generator.Core.Utilities
 
             // Validate if all characters are valid.
             return identifier.All(ValidateCharacter);
+        }
 
-            bool ValidateCharacter(char c)
-            {
-                // Validate the unicode category, following the c# rules of allowing these categories:
-                // Lu, Ll, Lt, Lm, Lo, Nl, Mn, Mc, Nd, Pc, and Cf
-                var charCat = char.GetUnicodeCategory(c);
-                return
-                    charCat == System.Globalization.UnicodeCategory.UppercaseLetter ||
-                    charCat == System.Globalization.UnicodeCategory.LowercaseLetter ||
-                    charCat == System.Globalization.UnicodeCategory.TitlecaseLetter ||
-                    charCat == System.Globalization.UnicodeCategory.ModifierLetter ||
-                    charCat == System.Globalization.UnicodeCategory.OtherLetter ||
-                    charCat == System.Globalization.UnicodeCategory.LetterNumber ||
-                    charCat == System.Globalization.UnicodeCategory.NonSpacingMark ||
-                    charCat == System.Globalization.UnicodeCategory.SpacingCombiningMark ||
-                    charCat == System.Globalization.UnicodeCategory.DecimalDigitNumber ||
-                    charCat == System.Globalization.UnicodeCategory.ConnectorPunctuation ||
-                    charCat == System.Globalization.UnicodeCategory.Format;
-            }
+        /// <summary>
+        /// Validate if given character can be used in a identifier.
+        /// </summary>
+        /// <param name="character">Character to validate</param>
+        /// <returns>'True' if valid, otherwise 'False'</returns>
+        public static bool ValidateCharacter(char character)
+        {
+            // Validate the unicode category, following the c# rules of allowing these categories:
+            // Lu, Ll, Lt, Lm, Lo, Nl, Mn, Mc, Nd, Pc, and Cf
+            var charCat = char.GetUnicodeCategory(character);
+            return
+                charCat == System.Globalization.UnicodeCategory.UppercaseLetter ||
+                charCat == System.Globalization.UnicodeCategory.LowercaseLetter ||
+                charCat == System.Globalization.UnicodeCategory.TitlecaseLetter ||
+                charCat == System.Globalization.UnicodeCategory.ModifierLetter ||
+                charCat == System.Globalization.UnicodeCategory.OtherLetter ||
+                charCat == System.Globalization.UnicodeCategory.LetterNumber ||
+                charCat == System.Globalization.UnicodeCategory.NonSpacingMark ||
+                charCat == System.Globalization.UnicodeCategory.SpacingCombiningMark ||
+                charCat == System.Globalization.UnicodeCategory.DecimalDigitNumber ||
+                charCat == System.Globalization.UnicodeCategory.ConnectorPunctuation ||
+                charCat == System.Globalization.UnicodeCategory.Format;
         }
     }
 }

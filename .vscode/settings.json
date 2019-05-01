@@ -5,7 +5,9 @@
     "cobertura",
     "codecov",
     "enumgeneratordotnet",
-    "nuget"
+    "nuget",
+    "unduplicate",
+    "unduplicated"
   ],
   // Search settings
   "search.useIgnoreFiles": false,

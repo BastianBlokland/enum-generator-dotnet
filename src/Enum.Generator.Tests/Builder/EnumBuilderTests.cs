@@ -21,7 +21,16 @@ namespace Enum.Generator.Tests.Builder
         });
 
         [Fact]
-        public void ThrowsIfEnumHasDuplicateValue() => Assert.Throws<DuplicateEnumValueException>(() =>
+        public void ThrowsIfEnumHasDuplicateEntryName() => Assert.Throws<DuplicateEnumEntryNameException>(() =>
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("A", 1);
+            builder.PushEntry("B", 2);
+            builder.PushEntry("B", 3);
+        });
+
+        [Fact]
+        public void ThrowsIfEnumHasDuplicateEntryValue() => Assert.Throws<DuplicateEnumEntryValueException>(() =>
         {
             var builder = new EnumBuilder("TestEnum");
             builder.PushEntry("A", 1);
@@ -30,18 +39,18 @@ namespace Enum.Generator.Tests.Builder
         });
 
         [Fact]
-        public void ThrowsIfEnumIsEmpty() => Assert.Throws<EmptyEnumException>(() =>
-        {
-            var builder = new EnumBuilder("TestEnum");
-            var enumDefinition = builder.Build();
-        });
-
-        [Fact]
         public void AllEntriesArePresent()
         {
             var builder = new EnumBuilder("TestEnum");
             builder.PushEntry("A", 1);
             builder.PushEntry("B", 2);
+
+            Assert.True(builder.HasEntry("A"));
+            Assert.True(builder.HasEntry("B"));
+
+            Assert.True(builder.HasEntry(1));
+            Assert.True(builder.HasEntry(2));
+
             var enumDefinition = builder.Build();
 
             Assert.True(enumDefinition.HasEntry("A"));

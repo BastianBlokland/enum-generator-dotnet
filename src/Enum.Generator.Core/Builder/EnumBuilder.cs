@@ -36,13 +36,35 @@ namespace Enum.Generator.Core.Builder
         public string Comment { get; set; }
 
         /// <summary>
+        /// Current count of entries added to the builder.
+        /// </summary>
+        public int EntryCount => this.entries.Count;
+
+        /// <summary>
+        /// Does this builder contain an entry with given name.
+        /// </summary>
+        /// <param name="name">Name to check</param>
+        /// <returns>'True' if found, otherwise 'False'</returns>
+        public bool HasEntry(string name) => this.entries.Any(e => e.Name == name);
+
+        /// <summary>
+        /// Does this builder contain an entry with given value.
+        /// </summary>
+        /// <param name="value">Value to check</param>
+        /// <returns>'True' if found, otherwise 'False'</returns>
+        public bool HasEntry(int value) => this.entries.Any(e => e.Value == value);
+
+        /// <summary>
         /// Add a entry to the enum.
         /// </summary>
-        /// <exception cref="Exceptions.DuplicateEnumValueException">
-        /// Thrown when value is not unique.
-        /// </exception>
         /// <exception cref="Exceptions.InvalidEnumEntryNameException">
         /// Thrown when name is not a valid identifier.
+        /// </exception>
+        /// <exception cref="Exceptions.DuplicateEnumEntryNameException">
+        /// Thrown when name is not unique.
+        /// </exception>
+        /// <exception cref="Exceptions.DuplicateEnumEntryValueException">
+        /// Thrown when value is not unique.
         /// </exception>
         /// <param name="name">Name of the entry</param>
         /// <param name="value">Value of the entry</param>
@@ -52,8 +74,11 @@ namespace Enum.Generator.Core.Builder
             if (!IdentifierValidator.Validate(name))
                 throw new Exceptions.InvalidEnumEntryNameException(this.name, name);
 
+            if (this.entries.Any(e => e.Name == name))
+                throw new Exceptions.DuplicateEnumEntryNameException(this.name, name);
+
             if (this.entries.Any(e => e.Value == value))
-                throw new Exceptions.DuplicateEnumValueException(this.name, value);
+                throw new Exceptions.DuplicateEnumEntryValueException(this.name, value);
 
             this.entries.Add(new EnumEntry(name, value, comment));
         }
@@ -61,16 +86,8 @@ namespace Enum.Generator.Core.Builder
         /// <summary>
         /// Build a immutable <see cref="EnumDefinition"/> from the current state of the builder.
         /// </summary>
-        /// <exception cref="Exceptions.EmptyEnumException">
-        /// Thrown when enum has no values.
-        /// </exception>
         /// <returns>Newly created immutable enum-definition</returns>
-        public EnumDefinition Build()
-        {
-            if (this.entries.Count == 0)
-                throw new Exceptions.EmptyEnumException(this.name);
-
-            return new EnumDefinition(this.name, this.entries.ToImmutableArray(), this.Comment);
-        }
+        public EnumDefinition Build() =>
+            new EnumDefinition(this.name, this.entries.ToImmutableArray(), this.Comment);
     }
 }
