@@ -75,6 +75,23 @@ namespace Enum.Generator.Tests.Builder
         }
 
         [Fact]
+        public void ExplictValuesOfWrongTypesAreIgnored()
+        {
+            var context = Context.Create("[*]", "name", "value");
+            var enumDefinition = context.MapEnum(
+            @"[
+                { ""name"": ""A"", ""value"": 10 },
+                { ""name"": ""B"", ""value"": [ 20 ] },
+                { ""name"": ""C"", ""value"": 30 }
+            ]",
+            "TestEnum");
+
+            Assert.Equal(new EnumEntry("A", 10), enumDefinition.Entries[0]);
+            Assert.Equal(new EnumEntry("B", 1), enumDefinition.Entries[1]);
+            Assert.Equal(new EnumEntry("C", 30), enumDefinition.Entries[2]);
+        }
+
+        [Fact]
         public void CommentsAreParsed()
         {
             var context = Context.Create("[*]", "name", null, "comment");
@@ -86,9 +103,9 @@ namespace Enum.Generator.Tests.Builder
             ]",
             "TestEnum");
 
-            Assert.Equal(new EnumEntry("A", 0, "This is A"), enumDefinition.Entries[0]);
-            Assert.Equal(new EnumEntry("B", 1, "This is B"), enumDefinition.Entries[1]);
-            Assert.Equal(new EnumEntry("C", 2, "This is C"), enumDefinition.Entries[2]);
+            Assert.Equal("This is A", enumDefinition.Entries[0].Comment);
+            Assert.Equal("This is B", enumDefinition.Entries[1].Comment);
+            Assert.Equal("This is C", enumDefinition.Entries[2].Comment);
         }
 
         [Fact]
@@ -115,8 +132,24 @@ namespace Enum.Generator.Tests.Builder
             ]",
             "TestEnum");
 
-            Assert.Equal(new EnumEntry("A", 1, "This is A"), enumDefinition.Entries[0]);
-            Assert.Equal(new EnumEntry("C", 3, "This is B"), enumDefinition.Entries[1]);
+            Assert.Equal(new EnumEntry("A", 1), enumDefinition.Entries[0]);
+            Assert.Equal(new EnumEntry("C", 3), enumDefinition.Entries[1]);
+        }
+
+        [Fact]
+        public void EntriesWithNamesOfWrongTypesAreSkipped()
+        {
+            var context = Context.Create("[*]", "name", "value");
+            var enumDefinition = context.MapEnum(
+            @"[
+                { ""name"": ""A"" },
+                { ""name"": [ 1 ] },
+                { ""name"": ""C"" },
+            ]",
+            "TestEnum");
+
+            Assert.Equal(new EnumEntry("A", 0), enumDefinition.Entries[0]);
+            Assert.Equal(new EnumEntry("C", 1), enumDefinition.Entries[1]);
         }
     }
 }
