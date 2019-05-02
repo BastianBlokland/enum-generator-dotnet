@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>7.3</LangVersion>
+        <CodeAnalysisRuleSet>../analyzers.ruleset</CodeAnalysisRuleSet>
+
+        <RootNamespace>EnumGenerator.Core</RootNamespace>
+        <AssemblyName>EnumGenerator.Core</AssemblyName>
+
+        <PackageId>EnumGenerator.Core</PackageId>
+        <Title>Enum generator framework</Title>
+        <Description>Framework used by the enum generator cli</Description>
+        <Authors>Bastian Blokland</Authors>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-dotnet</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <IsPackable>true</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Dependencies -->
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+        <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+
+        <!-- Sourcelink -->
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+
+        <!-- Static code analysis -->
+        <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <AdditionalFiles Include="../stylecop.json" />
+
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+        <!-- License -->
+        <None Include="../../LICENSE" Pack="true" PackagePath="" />
+
+        <!-- Documentation -->
+        <None Include="readme.md" Pack="true" PackagePath="" />
+
+    </ItemGroup>
+</Project>

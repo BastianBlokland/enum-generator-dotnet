@@ -30,9 +30,9 @@ publish ()
         --source "https://api.nuget.org/v3/index.json")
 }
 
-publish Enum.Generator.Core
-publish Enum.Generator.Cli
-publish Enum.Generator.GlobalTool
+publish EnumGenerator.Core
+publish EnumGenerator.Cli
+publish EnumGenerator.GlobalTool
 
 info "Finished publishing"
 exit 0

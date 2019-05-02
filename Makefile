@@ -6,7 +6,7 @@ default: build
 # --------------------------------------------------------------------------------------------------
 
 run:
-	dotnet run --project src/Enum.Generator.Cli/Enum.Generator.Cli.csproj -- $(ARGS)
+	dotnet run --project src/EnumGenerator.Cli/EnumGenerator.Cli.csproj -- $(ARGS)
 
 clean:
 	./ci/clean.sh

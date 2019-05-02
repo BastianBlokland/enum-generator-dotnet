@@ -15,7 +15,7 @@ info "Starting clean"
 rm -rf ./artifacts
 
 # Clean the solution
-dotnet clean src/Enum.Generator.sln
+dotnet clean src/EnumGenerator.sln
 
 info "Finished clean"
 exit 0
