@@ -4,11 +4,12 @@
   "cSpell.words": [
     "cobertura",
     "codecov",
+    "crit",
     "enumgeneratordotnet",
     "nuget",
     "unduplicate",
     "unduplicated"
-  ],
+],
   // Search settings
   "search.useIgnoreFiles": false,
   "search.exclude": {
