@@ -86,7 +86,7 @@ namespace Enum.Generator.Core.Mapping
                         context.MapEntry(builder, token);
                 }
 
-                context.Logger?.LogDebug($"Enum '{enumName}' with '{builder.EntryCount}' entries mapped");
+                context.Logger?.LogInformation($"Enum '{enumName}' with '{builder.EntryCount}' entries mapped");
                 return builder.Build();
             }
             catch (Exception e)
@@ -131,7 +131,17 @@ namespace Enum.Generator.Core.Mapping
                     return null;
                 }
 
-                var name = nameToken.Value<string>();
+                string name;
+                try
+                {
+                    name = nameToken.Value<string>();
+                }
+                catch
+                {
+                    context.Logger?.LogError($"Entry-name at path: '{context.EntryNameJPath}' is not of type 'string'");
+                    return null;
+                }
+
                 context.Logger?.LogTrace($"Entry name-token found: '{name}'");
 
                 // Create identifier out of the name.
@@ -158,11 +168,22 @@ namespace Enum.Generator.Core.Mapping
                 var valueToken = string.IsNullOrEmpty(context.EntryValueJPath) ?
                     null :
                     entryToken.SelectToken(context.EntryValueJPath);
-                var value = valueToken?.Value<int?>();
-                if (value == null)
-                    context.Logger?.LogTrace($"No value found at: '{context.EntryValueJPath}' using count as value");
+                if (valueToken == null)
+                {
+                    context.Logger?.LogTrace(
+                        $"No value found at: '{context.EntryValueJPath}' using count '{builder.EntryCount}' as value");
+                    return builder.EntryCount;
+                }
 
-                return value ?? builder.EntryCount;
+                try
+                {
+                    return valueToken.Value<int>();
+                }
+                catch
+                {
+                    context.Logger?.LogWarning($"Value found at: '{context.EntryValueJPath}' is not of type 'number'");
+                    return builder.EntryCount;
+                }
             }
 
             string ParseComment()
@@ -170,7 +191,17 @@ namespace Enum.Generator.Core.Mapping
                 var commentToken = string.IsNullOrEmpty(context.EntryCommentJPath) ?
                     null :
                     entryToken.SelectToken(context.EntryCommentJPath);
-                return commentToken?.Value<string>();
+                if (commentToken == null)
+                    return null;
+                try
+                {
+                    return commentToken.Value<string>();
+                }
+                catch
+                {
+                    context.Logger?.LogWarning($"Comment at path: '{context.EntryValueJPath}' is not of type 'string'");
+                    return null;
+                }
             }
         }
     }
