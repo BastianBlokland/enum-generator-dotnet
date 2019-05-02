@@ -10,7 +10,7 @@ source ./ci/utils.sh
 verifyCommand dotnet
 
 info "Starting build"
-withRetry dotnet build src/Enum.Generator.sln
+withRetry dotnet build src/EnumGenerator.sln
 
 info "Finished build"
 exit 0

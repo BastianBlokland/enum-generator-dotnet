@@ -38,9 +38,9 @@ package ()
         /p:TreatWarningsAsErrors=true /warnaserror
 }
 
-package Enum.Generator.Core
-package Enum.Generator.Cli
-package Enum.Generator.GlobalTool
+package EnumGenerator.Core
+package EnumGenerator.Cli
+package EnumGenerator.GlobalTool
 
 info "Finished packaging"
 exit 0

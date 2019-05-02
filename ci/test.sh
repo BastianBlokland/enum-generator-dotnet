@@ -15,14 +15,14 @@ verifyCommand dotnet
 info "Starting tests"
 
 # Build the solution in Debug configuration (So that Debug.Asserts will fire)
-withRetry dotnet build --configuration Debug src/Enum.Generator.sln
+withRetry dotnet build --configuration Debug src/EnumGenerator.sln
 
 # Run test (And collect coverage using coverlet)
-dotnet test src/Enum.Generator.Tests/Enum.Generator.Tests.csproj \
+dotnet test src/EnumGenerator.Tests/EnumGenerator.Tests.csproj \
     --logger "xunit;LogFilePath=$TEST_RESULT_PATH" \
     /p:CollectCoverage=true \
     /p:UseSourceLink=true \
-    /p:Include="[Enum.Generator.Core]*" \
+    /p:Include="[EnumGenerator.Core]*" \
     /p:CoverletOutputFormat=cobertura \
     /p:CoverletOutput=$COVERAGE_RESULT_PATH
 EXIT_CODE=$?
