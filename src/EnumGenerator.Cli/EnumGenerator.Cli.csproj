@@ -6,7 +6,7 @@
     <LangVersion>7.3</LangVersion>
     <CodeAnalysisRuleSet>../analyzers.ruleset</CodeAnalysisRuleSet>
 
-    <AssemblyName>enum-generator</AssemblyName>
+    <AssemblyName>dotnet-enum-generator</AssemblyName>
     <RootNamespace>EnumGenerator.Cli</RootNamespace>
 
     <PackageId>EnumGenerator.Cli</PackageId>
