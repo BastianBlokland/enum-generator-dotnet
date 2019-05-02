@@ -1,7 +1,13 @@
 using System;
+using System.IO;
+using System.Text;
 using Microsoft.Extensions.Logging;
 
 using Enum.Generator.Core.Utilities;
+using Enum.Generator.Core.Mapping;
+using Enum.Generator.Core.Mapping.Exceptions;
+using Enum.Generator.Core.Definition;
+using Enum.Generator.Core.Exporter;
 
 namespace Enum.Generator.Cli
 {
@@ -10,6 +16,8 @@ namespace Enum.Generator.Cli
     /// </summary>
     public sealed class Application
     {
+        private static readonly Encoding Utf8NoBom = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+
         private readonly ILogger logger;
 
         /// <summary>
@@ -61,17 +69,152 @@ namespace Enum.Generator.Cli
             int indentSize,
             CodeBuilder.NewlineMode newlineMode)
         {
-            if (inputFile == null)
-                throw new ArgumentNullException(nameof(inputFile));
-            if (outputFile == null)
-                throw new ArgumentNullException(nameof(outputFile));
-            if (collectionJPath == null)
-                throw new ArgumentNullException(nameof(collectionJPath));
-            if (entryNameJPath == null)
-                throw new ArgumentNullException(nameof(entryNameJPath));
+            if (string.IsNullOrEmpty(inputFile))
+                throw new ArgumentException($"Invalid path: '{inputFile}'", nameof(inputFile));
+            if (string.IsNullOrEmpty(outputFile))
+                throw new ArgumentException($"Invalid path: '{outputFile}'", nameof(outputFile));
+            if (string.IsNullOrEmpty(collectionJPath))
+                throw new ArgumentException($"Invalid JPath: '{collectionJPath}'", nameof(collectionJPath));
+            if (string.IsNullOrEmpty(entryNameJPath))
+                throw new ArgumentException($"Invalid JPath: '{entryNameJPath}'", nameof(entryNameJPath));
 
-            this.logger.LogInformation("Hello world");
+            // Resolve relative paths to absolute paths.
+            var fullInputPath = this.GetFullPath(inputFile);
+            var fullOutputPath = this.GetFullPath(outputFile);
+            if (fullInputPath == null || fullOutputPath == null)
+                return 1;
+
+            // Get input.
+            var inputJson = GetInputJson();
+            if (inputJson == null)
+                return 1;
+
+            // Generate enum name.
+            var enumName = GetEnumName();
+            if (enumName == null)
+                return 1;
+
+            // Create mapping context.
+            var context = Context.Create(
+                collectionJPath,
+                entryNameJPath,
+                entryValueJPath,
+                entryCommentJPath,
+                this.logger);
+
+            // Map enum.
+            EnumDefinition enumDefinition = null;
+            try
+            {
+                enumDefinition = context.MapEnum(inputJson, enumName, enumComment);
+            }
+            catch (JsonParsingFailureException)
+            {
+                this.logger.LogCritical("Failed to parse input file: invalid json");
+                return 1;
+            }
+            catch (MappingFailureException e)
+            {
+                this.logger.LogCritical($"Failed to map enum: {e.InnerException.Message}");
+                return 1;
+            }
+
+            // Export to c#.
+            string csharp = null;
+            try
+            {
+                csharp = enumDefinition.Export(enumNamespace, indentMode, indentSize, newlineMode);
+            }
+            catch (Exception e)
+            {
+                this.logger.LogCritical($"Failed to generate c#: {e.Message}");
+                return 1;
+            }
+
+            // Save the enum as a c# file.
+            try
+            {
+                if (!fullOutputPath.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+                    fullOutputPath = $"{fullOutputPath}.g.cs";
+                Directory.GetParent(fullOutputPath).Create();
+                using (var stream = new FileStream(fullOutputPath, FileMode.Create, FileAccess.Write))
+                using (var writer = new StreamWriter(stream, Utf8NoBom))
+                {
+                    writer.Write(csharp);
+                }
+
+                this.logger.LogInformation($"Written enum to: '{fullOutputPath}'");
+            }
+            catch (Exception e)
+            {
+                this.logger.LogCritical($"Failed to save to '{fullOutputPath}': {e.Message}");
+                return 1;
+            }
+
             return 0;
+
+            string GetInputJson()
+            {
+                if (!File.Exists(fullInputPath))
+                {
+                    this.logger.LogCritical($"No file found at: '{fullInputPath}'");
+                    return null;
+                }
+
+                try
+                {
+                    var result = File.ReadAllText(fullInputPath);
+                    this.logger.LogDebug($"'{result.Length}' characters read from: '{fullInputPath}'");
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    this.logger.LogCritical($"Unable to read file '{fullInputPath}': {e.Message}");
+                    return null;
+                }
+            }
+
+            string GetEnumName()
+            {
+                // Determine file-name.
+                string fileName;
+                try
+                {
+                    fileName = Path.GetFileNameWithoutExtension(fullOutputPath);
+                    if (fileName.EndsWith(".g", StringComparison.OrdinalIgnoreCase))
+                        fileName = fileName.Substring(0, fileName.Length - 2);
+                }
+                catch (Exception)
+                {
+                    this.logger.LogCritical($"Unable to get file-name from path: '{fullOutputPath}'");
+                    return null;
+                }
+
+                // Convert file-name into valid identifier.
+                if (IdentifierCreator.TryCreateIdentifier(fileName, out var nameId))
+                {
+                    this.logger.LogDebug($"Generated enum-name: '{nameId}' from file-name: '{fileName}'");
+                    return nameId;
+                }
+
+                this.logger.LogCritical($"Unable to create valid identifier from file-name: '{fileName}'");
+                return null;
+            }
+        }
+
+        private string GetFullPath(string relativePath)
+        {
+            try
+            {
+                var result = Path.GetFullPath(relativePath);
+                this.logger.LogDebug($"Resolved absolute path: '{result}'");
+                return result;
+            }
+            catch
+            {
+                this.logger.LogCritical($"Unable to determine absolute path for: '{relativePath}'");
+                return null;
+            }
         }
     }
 }

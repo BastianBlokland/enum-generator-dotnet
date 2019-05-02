@@ -50,7 +50,7 @@ namespace Enum.Generator.Cli
         public string EntryCommentJPath { get; set; }
 
         /// <summary>Comment to add to the generated enum</summary>
-        [Option("enumcomment", Required = false, HelpText = "Comment to add to the generated enum")]
+        [Option("comment", Required = false, HelpText = "Comment to add to the generated enum")]
         public string EnumComment { get; set; }
 
         /// <summary>Namespace to add the created enum to</summary>

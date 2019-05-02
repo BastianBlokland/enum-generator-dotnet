@@ -86,7 +86,7 @@ namespace Enum.Generator.Core.Mapping
                         context.MapEntry(builder, token);
                 }
 
-                context.Logger?.LogDebug($"Enum '{enumName}' with '{builder.EntryCount}' entries mapped");
+                context.Logger?.LogInformation($"Enum '{enumName}' with '{builder.EntryCount}' entries mapped");
                 return builder.Build();
             }
             catch (Exception e)
@@ -170,7 +170,8 @@ namespace Enum.Generator.Core.Mapping
                     entryToken.SelectToken(context.EntryValueJPath);
                 if (valueToken == null)
                 {
-                    context.Logger?.LogTrace($"No value found at: '{context.EntryValueJPath}' using count as value");
+                    context.Logger?.LogTrace(
+                        $"No value found at: '{context.EntryValueJPath}' using count '{builder.EntryCount}' as value");
                     return builder.EntryCount;
                 }
 
