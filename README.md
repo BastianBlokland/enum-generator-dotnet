@@ -25,7 +25,7 @@ There are 3 different ways to use the generator:
 | Manual library integration | [**Core**](https://www.nuget.org/packages/EnumGenerator.Core/) | [Core Readme](https://github.com/BastianBlokland/enum-generator-dotnet/tree/master/src/EnumGenerator.Core/readme.md) |
 
 ## Json file structure
-To be able to handle many different file structures the generator takes in a number of [**JPath**]() entries:
+To be able to handle many different file structures the generator takes in a number of [**JsonPath**](https://goessner.net/articles/JsonPath/) entries:
 
 | Argument | Usage |
 |----------|-------|
