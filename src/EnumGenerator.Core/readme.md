@@ -11,7 +11,7 @@ Can be used for more complex integration into a build pipeline, for simple use-c
 There are two ways to add the nuget package:
 1. Run:
 ```bash
-dotnet add package EnumGenerator.Core --version 1.0.*
+dotnet add package EnumGenerator.Core --version '1.0.*'
 ```
 2. Add the following to a `ItemGroup` section of your csproj:
 ```xml
@@ -26,17 +26,20 @@ using EnumGenerator.Core.Mapping;
 using EnumGenerator.Core.Definition;
 using EnumGenerator.Core.Exporter;
 ```
+
 2. Create a mapping context:
 ```c#
 // Create context object containing all the settings for the mapping.
 var context = Context.Create("[*]", "name");
 ```
 Note: To get more diagnostics you can also supply a `Microsoft.Extensions.Logging.ILogger` implementation here.
+
 3. Map the enum:
 ```c#
 var inputJson = File.ReadAllText("input.json");
 var enumDefinition = context.MapEnum(inputJson, "TestEnum");
 ```
+
 4. Export the enum:
 ```c#
 var csharp = enumDefinition.Export();
