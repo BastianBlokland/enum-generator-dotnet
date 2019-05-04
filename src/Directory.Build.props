@@ -1,7 +1,7 @@
 <Project>
   <!-- Major.Minor adjust manually -->
   <PropertyGroup>
-    <VersionPrefix>0.1</VersionPrefix>
+    <VersionPrefix>1.0</VersionPrefix>
   </PropertyGroup>
 
   <!-- Automatically set suffix info based on environment args (if availble) -->

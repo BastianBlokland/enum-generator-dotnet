@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Example</AssemblyName>
+  </PropertyGroup>
+
+  <!-- Generate the enums before build -->
+  <Target Name="GenerateMonthsEnum" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet enum-generator \
+    -i months.json \
+    -o Months.g.cs \
+    --entryname name \
+    --entryvalue number \
+    --entrycomment trivia \
+    --namespace Example \
+    --comment 'Enum with all the months.'"/>
+  </Target>
+
+  <Target Name="GenerateExpensiveProductsEnum" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet enum-generator \
+    -i products.json \
+    -o ExpensiveProducts.g.cs \
+    --collection '..Products[?(@.Price >= 10)]' \
+    --entryname Name"/>
+  </Target>
+
+  <ItemGroup>
+
+    <!-- Tools -->
+    <DotNetCliToolReference Include="EnumGenerator.Cli" Version="*" />
+
+  </ItemGroup>
+
+</Project>

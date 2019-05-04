@@ -1,0 +1,62 @@
+[
+  {
+    "name": "January",
+    "number": 1,
+    "trivia": "Janus is the Roman god of gates and doorways, depicted with two faces looking in opposite directions. His festival month is January."
+  },
+  {
+    "name": "February",
+    "number": 2,
+    "trivia": "Februarius had 28 days, until circa 450 BC when it had 23 or 24 days on some of every second year, until Julius when it had 29 days on every fourth year and 28 days otherwise."
+  },
+  {
+    "name": "March",
+    "number": 3,
+    "trivia": "March was the original beginning of the year, and the time for the resumption of war."
+  },
+  {
+    "name": "April",
+    "number": 4,
+    "trivia": "Aprilis had 30 days, until Numa when it had 29 days, until Julius when it became 30 days long."
+  },
+  {
+    "name": "May",
+    "number": 5,
+    "trivia": "Maia (meaning 'the great one') is the Italic goddess of spring, the daughter of Faunus, and wife of Vulcan."
+  },
+  {
+    "name": "June",
+    "number": 6,
+    "trivia": "Juno is the principle goddess of the Roman Pantheon. She is the goddess of marriage and the well-being of women. She is the wife and sister of Jupiter. She is identified with the Greek goddess Hera."
+  },
+  {
+    "name": "July",
+    "number": 7,
+    "trivia": "Julius Caesar reformed the Roman calendar (hence the Julian calendar) in 46 BC. In the process, he renamed this month after himself."
+  },
+  {
+    "name": "August",
+    "number": 8,
+    "trivia": "Augustus Caesar clarified and completed the calendar reform of Julius Caesar. In the process, he also renamed this month after himself."
+  },
+  {
+    "name": "September",
+    "number": 9,
+    "trivia": "September had 30 days, until Numa when it had 29 days, until Julius when it became 30 days long."
+  },
+  {
+    "name": "October",
+    "number": 10,
+    "trivia": "October has always had 31 days."
+  },
+  {
+    "name": "November",
+    "number": 11,
+    "trivia": "October has always had 31 days."
+  },
+  {
+    "name": "December",
+    "number": 12,
+    "trivia": "December had 30 days, until Numa when it had 29 days, until Julius when it became 31 days long."
+  }
+]
