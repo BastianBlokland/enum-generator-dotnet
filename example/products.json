@@ -1,0 +1,34 @@
+{
+  "Stores": [
+    {
+      "Name": "GroceryStore",
+      "Products": [
+        {
+          "Name": "Apples",
+          "Price": 2.00
+        },
+        {
+          "Name": "Oranges",
+          "Price": 3.00
+        }
+      ]
+    },
+    {
+      "Name": "HardwareStore",
+      "Products": [
+        {
+          "Name": "Drill",
+          "Price": 39.99
+        },
+        {
+          "Name": "Hammer",
+          "Price": 19.00
+        },
+        {
+          "Name": "Screws",
+          "Price": 5.00
+        }
+      ]
+    }
+  ]
+}
