@@ -25,7 +25,7 @@ There are 3 different ways to use the generator:
 | Manual library integration | [**Core**](https://www.nuget.org/packages/EnumGenerator.Core/) | [Core Readme](https://github.com/BastianBlokland/enum-generator-dotnet/tree/master/src/EnumGenerator.Core/readme.md) |
 
 ## Json file structure
-To be able to handle many different file structures the generator takes in a number of [**JPath**]() entries.
+To be able to handle many different file structures the generator takes in a number of [**JPath**]() entries:
 
 | Argument | Usage |
 |----------|-------|
@@ -39,68 +39,139 @@ Note: If no `entryvalue` is provided the index in the collection will be used as
 Here's a couple structure examples:
 * *Outer array*
 
-    json:
-    ```json
-    [
-        {
-            "name": "A",
-            "value": 1
-        },
-        {
-            "name": "B",
-            "value": 2
-        },
-    ]
-    ```
-    options:
-    ```javascript
-    collection = "[*]"
-    entryname = "name"
-    entryvalue = "value"
-    ```
+  json:
+  ```json
+  [
+    {
+      "name": "A",
+      "value": 1
+    },
+    {
+      "name": "B",
+      "value": 2
+    },
+  ]
+  ```
+  options:
+  ```javascript
+  collection = "[*]"
+  entryname = "name"
+  entryvalue = "value"
+  ```
+
 * *Inner array*
 
-    json:
-    ```json
-    {
-        "entries": [
-            "A",
-            "B"
-        ]
-    }
-    ```
-    options:
-    ```javascript
-    collection = "entries[*]"
-    entryname = "$"
-    ```
+  json:
+  ```json
+  {
+    "entries": [
+        "A",
+        "B"
+    ]
+  }
+  ```
+  options:
+  ```javascript
+  collection = "entries[*]"
+  entryname = "$"
+  ```
+
 * *Inner object*
 
-    json:
-    ```json
-    {
-        "entries": [
-            {
-                "info": {
-                    "name": "A"
-                },
-                "value": 10
-            },
-            {
-                "info": {
-                    "name": "B"
-                },
-                "value": 20
-            }
-        ]
+  json:
+  ```json
+  {
+    "entries": [
+      {
+        "info": {
+          "name": "A"
+        },
+        "value": 10
+      },
+      {
+        "info": {
+          "name": "B"
+        },
+        "value": 20
+      }
+    ]
+  }
+  ```
+  options:
+  ```javascript
+  collection = "entries[*]"
+  entryname = "info.name"
+  entryvalue = "value"
+  ```
+* *Deep search*
+
+  json:
+  ```json
+  {
+    "collection1": {
+      "entries": [
+        {
+          "name": "A"
+        },
+        {
+          "name": "B"
+        }
+      ]
+    },
+    "collection2": {
+      "entries": [
+        {
+          "name": "C"
+        },
+        {
+          "name": "D"
+        }
+      ]
     }
-    ```
-    options:
-    ```javascript
-    collection = "entries[*]"
-    entryname = "info.name"
-    entryvalue = "value"
-    ```
+  }
+  ```
+  options:
+  ```javascript
+  collection = "..entries[*]"
+  entryname = "name"
+  entryvalue = "value"
+  ```
+
+* *Filtering*
+
+  json:
+  ```json
+  [
+    {
+      "name": "A",
+      "value": 1,
+      "active": false
+    },
+    {
+      "name": "B",
+      "value": 2,
+      "active": true
+    },
+    {
+      "name": "C",
+      "value": 3,
+      "active": true
+    },
+    {
+      "name": "D",
+      "value": 4,
+      "active": false
+    }
+  ]
+  ```
+  options:
+  ```javascript
+  collection = "[?(@.active == true)]"
+  entryname = "name"
+  entryvalue = "value"
+  ```
+
+Note: Enable `verbose` logging to get more output about what the mapper is doing.
 
 ## Integration example
 An example can be found in the [**example**](https://github.com/BastianBlokland/enum-generator-dotnet/tree/master/example) directory.
