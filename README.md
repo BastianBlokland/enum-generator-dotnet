@@ -1,4 +1,4 @@
-# Enum-Generator-Dotnet
+# EnumGenerator-Dotnet
 
 [![Build](https://img.shields.io/azure-devops/build/bastian-blokland/EnumGenerator/5/master.svg)](https://dev.azure.com/bastian-blokland/EnumGenerator/_build/latest?definitionId=5&branchName=master)
 [![Tests](https://img.shields.io/azure-devops/tests/bastian-blokland/EnumGenerator/5/master.svg)](https://dev.azure.com/bastian-blokland/EnumGenerator/_build/latest?definitionId=5&branchName=master)
