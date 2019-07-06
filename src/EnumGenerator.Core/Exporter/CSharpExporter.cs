@@ -1,5 +1,5 @@
 using System;
-using System.Reflection;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using EnumGenerator.Core.Definition;
@@ -19,21 +19,28 @@ namespace EnumGenerator.Core.Exporter
         /// <exception cref="Exceptions.InvalidNamespaceException">
         /// Thrown when a invalid namespace identifier is given.
         /// </exception>
+        /// <exception cref="Exceptions.OutOfBoundsValueException">
+        /// Thrown when enum value does not fit in given storage-type.
+        /// </exception>
         /// <param name="enumDefinition">Enum to generate c# source-code for</param>
         /// <param name="namespace">Optional namespace to add the enum to</param>
         /// <param name="indentMode">Mode to use for indenting</param>
         /// <param name="spaceIndentSize">When indenting with spaces this controls how many</param>
         /// <param name="newlineMode">Mode to use for ending lines</param>
+        /// <param name="storageType">Underlying enum storage-type to use</param>
         /// <returns>String containing the genenerated c# sourcecode</returns>
         public static string Export(
             this EnumDefinition enumDefinition,
             string @namespace = null,
             CodeBuilder.IndentMode indentMode = CodeBuilder.IndentMode.Spaces,
             int spaceIndentSize = 4,
-            CodeBuilder.NewlineMode newlineMode = CodeBuilder.NewlineMode.Unix)
+            CodeBuilder.NewlineMode newlineMode = CodeBuilder.NewlineMode.Unix,
+            StorageType storageType = StorageType.Implicit)
         {
             if (enumDefinition == null)
                 throw new ArgumentNullException(nameof(enumDefinition));
+            foreach (var oobEntry in enumDefinition.Entries.Where(e => !storageType.Validate(e.Value)))
+                throw new OutOfBoundsValueException(storageType, oobEntry.Value);
 
             var builder = new CodeBuilder(indentMode, spaceIndentSize, newlineMode);
             builder.AddHeader();
@@ -42,9 +49,9 @@ namespace EnumGenerator.Core.Exporter
             builder.WriteEmptyLine();
 
             if (string.IsNullOrEmpty(@namespace))
-                builder.AddEnum(enumDefinition);
+                builder.AddEnum(enumDefinition, storageType);
             else
-                builder.AddNamespace(@namespace, b => b.AddEnum(enumDefinition));
+                builder.AddNamespace(@namespace, b => b.AddEnum(enumDefinition, storageType));
 
             return builder.Build();
         }
@@ -65,13 +72,16 @@ namespace EnumGenerator.Core.Exporter
             builder.EndScope();
         }
 
-        private static void AddEnum(this CodeBuilder builder, EnumDefinition enumDefinition)
+        private static void AddEnum(this CodeBuilder builder, EnumDefinition enumDefinition, StorageType storageType)
         {
             var assemblyName = typeof(CSharpExporter).Assembly.GetName();
             if (!string.IsNullOrEmpty(enumDefinition.Comment))
                 builder.AddSummary(enumDefinition.Comment);
             builder.WriteLine($"[GeneratedCode(\"{assemblyName.Name}\", \"{assemblyName.Version}\")]");
-            builder.WriteLine($"public enum {enumDefinition.Identifier}");
+            if (storageType == StorageType.Implicit)
+                builder.WriteLine($"public enum {enumDefinition.Identifier}");
+            else
+                builder.WriteLine($"public enum {enumDefinition.Identifier} : {storageType.GetKeyword()}");
             builder.StartScope();
 
             var first = true;

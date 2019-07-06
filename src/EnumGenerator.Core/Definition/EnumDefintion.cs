@@ -71,7 +71,7 @@ namespace EnumGenerator.Core.Definition
         /// </summary>
         /// <param name="value">Value to check</param>
         /// <returns>'True' if found, otherwise 'False'</returns>
-        public bool HasEntry(int value) => this.Entries.Any(e => e.Value == value);
+        public bool HasEntry(long value) => this.Entries.Any(e => e.Value == value);
 
         /// <summary>
         /// Try to find the name for the given value.
@@ -79,7 +79,7 @@ namespace EnumGenerator.Core.Definition
         /// <param name="value">Value to find the name for</param>
         /// <param name="name">Name of the value if found, otherwise null</param>
         /// <returns>'True' if found, otherwise 'False'</returns>
-        public bool TryGetName(int value, out string name)
+        public bool TryGetName(long value, out string name)
         {
             foreach (var entry in this.Entries)
             {
@@ -100,7 +100,7 @@ namespace EnumGenerator.Core.Definition
         /// <param name="name">Name to find the value for</param>
         /// <param name="value">Value of the name if found, otherwise -1</param>
         /// <returns>'True' if found, otherwise 'False'</returns>
-        public bool TryGetValue(string name, out int value)
+        public bool TryGetValue(string name, out long value)
         {
             foreach (var entry in this.Entries)
             {

@@ -55,6 +55,7 @@ namespace EnumGenerator.Cli
         /// <param name="indentMode">Mode to use when indenting text</param>
         /// <param name="indentSize">When indenting with spaces this controls how many</param>
         /// <param name="newlineMode">Mode to use when adding newlines to text</param>
+        /// <param name="storageType">Storage type for the exported enum</param>
         /// <returns>Exit code</returns>
         public int Run(
             string inputFile,
@@ -67,7 +68,8 @@ namespace EnumGenerator.Cli
             string enumNamespace,
             CodeBuilder.IndentMode indentMode,
             int indentSize,
-            CodeBuilder.NewlineMode newlineMode)
+            CodeBuilder.NewlineMode newlineMode,
+            Core.Exporter.StorageType storageType)
         {
             if (string.IsNullOrEmpty(inputFile))
                 throw new ArgumentException($"Invalid path: '{inputFile}'", nameof(inputFile));
@@ -123,7 +125,7 @@ namespace EnumGenerator.Cli
             string csharp = null;
             try
             {
-                csharp = enumDefinition.Export(enumNamespace, indentMode, indentSize, newlineMode);
+                csharp = enumDefinition.Export(enumNamespace, indentMode, indentSize, newlineMode, storageType);
             }
             catch (Exception e)
             {

@@ -163,7 +163,7 @@ namespace EnumGenerator.Core.Mapping
                 return unduplicatedName;
             }
 
-            int ParseValue()
+            long ParseValue()
             {
                 var valueToken = string.IsNullOrEmpty(context.EntryValueJPath) ?
                     null :
@@ -177,7 +177,7 @@ namespace EnumGenerator.Core.Mapping
 
                 try
                 {
-                    return valueToken.Value<int>();
+                    return valueToken.Value<long>();
                 }
                 catch
                 {

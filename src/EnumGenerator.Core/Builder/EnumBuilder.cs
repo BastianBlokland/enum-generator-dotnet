@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Immutable;
 using System.Linq;
 
@@ -52,7 +51,7 @@ namespace EnumGenerator.Core.Builder
         /// </summary>
         /// <param name="value">Value to check</param>
         /// <returns>'True' if found, otherwise 'False'</returns>
-        public bool HasEntry(int value) => this.entries.Any(e => e.Value == value);
+        public bool HasEntry(long value) => this.entries.Any(e => e.Value == value);
 
         /// <summary>
         /// Add a entry to the enum.
@@ -69,7 +68,7 @@ namespace EnumGenerator.Core.Builder
         /// <param name="name">Name of the entry</param>
         /// <param name="value">Value of the entry</param>
         /// <param name="comment">Optional comment about the entry</param>
-        public void PushEntry(string name, int value, string comment = null)
+        public void PushEntry(string name, long value, string comment = null)
         {
             if (!IdentifierValidator.Validate(name))
                 throw new Exceptions.InvalidEnumEntryNameException(this.name, name);
