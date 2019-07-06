@@ -28,6 +28,7 @@ namespace EnumGenerator.Core.Exporter
         /// <param name="spaceIndentSize">When indenting with spaces this controls how many</param>
         /// <param name="newlineMode">Mode to use for ending lines</param>
         /// <param name="storageType">Underlying enum storage-type to use</param>
+        /// <param name="curlyBracketMode">Mode to use when writing curly brackets</param>
         /// <returns>String containing the genenerated c# sourcecode</returns>
         public static string Export(
             this EnumDefinition enumDefinition,
@@ -35,7 +36,8 @@ namespace EnumGenerator.Core.Exporter
             CodeBuilder.IndentMode indentMode = CodeBuilder.IndentMode.Spaces,
             int spaceIndentSize = 4,
             CodeBuilder.NewlineMode newlineMode = CodeBuilder.NewlineMode.Unix,
-            StorageType storageType = StorageType.Implicit)
+            StorageType storageType = StorageType.Implicit,
+            CurlyBracketMode curlyBracketMode = CurlyBracketMode.NewLine)
         {
             if (enumDefinition == null)
                 throw new ArgumentNullException(nameof(enumDefinition));
@@ -44,14 +46,21 @@ namespace EnumGenerator.Core.Exporter
 
             var builder = new CodeBuilder(indentMode, spaceIndentSize, newlineMode);
             builder.AddHeader();
-            builder.WriteEmptyLine();
+            builder.WriteEndLine();
             builder.WriteLine("using System.CodeDom.Compiler;");
-            builder.WriteEmptyLine();
+            builder.WriteEndLine();
 
             if (string.IsNullOrEmpty(@namespace))
-                builder.AddEnum(enumDefinition, storageType);
+            {
+                builder.AddEnum(enumDefinition, storageType, curlyBracketMode);
+            }
             else
-                builder.AddNamespace(@namespace, b => b.AddEnum(enumDefinition, storageType));
+            {
+                builder.AddNamespace(
+                    @namespace,
+                    b => b.AddEnum(enumDefinition, storageType, curlyBracketMode),
+                    curlyBracketMode);
+            }
 
             return builder.Build();
         }
@@ -59,36 +68,41 @@ namespace EnumGenerator.Core.Exporter
         private static void AddNamespace(
             this CodeBuilder builder,
             string @namespace,
-            Action<CodeBuilder> addContent)
+            Action<CodeBuilder> addContent,
+            CurlyBracketMode curlyBracketMode)
         {
             if (!IdentifierValidator.ValidateNamespace(@namespace))
                 throw new InvalidNamespaceException(@namespace);
 
-            builder.WriteLine($"namespace {@namespace}");
-            builder.StartScope();
+            builder.Write($"namespace {@namespace}");
+            builder.StartScope(curlyBracketMode);
 
             addContent?.Invoke(builder);
 
             builder.EndScope();
         }
 
-        private static void AddEnum(this CodeBuilder builder, EnumDefinition enumDefinition, StorageType storageType)
+        private static void AddEnum(
+            this CodeBuilder builder,
+            EnumDefinition enumDefinition,
+            StorageType storageType,
+            CurlyBracketMode curlyBracketMode)
         {
             var assemblyName = typeof(CSharpExporter).Assembly.GetName();
             if (!string.IsNullOrEmpty(enumDefinition.Comment))
                 builder.AddSummary(enumDefinition.Comment);
             builder.WriteLine($"[GeneratedCode(\"{assemblyName.Name}\", \"{assemblyName.Version}\")]");
             if (storageType == StorageType.Implicit)
-                builder.WriteLine($"public enum {enumDefinition.Identifier}");
+                builder.Write($"public enum {enumDefinition.Identifier}");
             else
-                builder.WriteLine($"public enum {enumDefinition.Identifier} : {storageType.GetKeyword()}");
-            builder.StartScope();
+                builder.Write($"public enum {enumDefinition.Identifier} : {storageType.GetKeyword()}");
+            builder.StartScope(curlyBracketMode);
 
             var first = true;
             foreach (var entry in enumDefinition.Entries)
             {
                 if (!first)
-                    builder.WriteEmptyLine();
+                    builder.WriteEndLine();
                 first = false;
 
                 if (!string.IsNullOrEmpty(entry.Comment))
@@ -99,9 +113,24 @@ namespace EnumGenerator.Core.Exporter
             builder.EndScope();
         }
 
-        private static void StartScope(this CodeBuilder builder)
+        private static void StartScope(this CodeBuilder builder, CurlyBracketMode curlyBracketMode)
         {
-            builder.WriteLine("{");
+            switch (curlyBracketMode)
+            {
+                case CurlyBracketMode.NewLine:
+                    if (builder.IsLineActive)
+                        builder.WriteEndLine();
+                    builder.WriteLine("{");
+                    break;
+
+                case CurlyBracketMode.SameLine:
+                    if (!builder.IsNewLine && !builder.IsSpace)
+                        builder.WriteSpace();
+                    builder.Append("{");
+                    builder.WriteEndLine();
+                    break;
+            }
+
             builder.BeginIndent();
         }
 

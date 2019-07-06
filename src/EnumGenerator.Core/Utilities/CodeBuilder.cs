@@ -64,6 +64,21 @@ namespace EnumGenerator.Core.Utilities
         public int CurrentIndent => this.currentIndent;
 
         /// <summary>
+        /// Is the current character a space.
+        /// </summary>
+        public bool IsSpace => this.builder.EndsWith(" ");
+
+        /// <summary>
+        /// Is the current line empty.
+        /// </summary>
+        public bool IsNewLine => this.builder.EndsWith(this.newline);
+
+        /// <summary>
+        /// Is there already content on the current line.
+        /// </summary>
+        public bool IsLineActive => !this.builder.EndsWith(this.newline);
+
+        /// <summary>
         /// Indent one level deeper.
         /// </summary>
         public void BeginIndent() => this.currentIndent++;
@@ -83,12 +98,26 @@ namespace EnumGenerator.Core.Utilities
         }
 
         /// <summary>
-        /// Write a line.
+        /// Write text and end the line.
         /// </summary>
         /// <param name="text">Content to write</param>
         /// <param name="additionalIndent">Additional level to indent this content</param>
         /// <param name="prefix">Optional prefix to write before the indent</param>
         public void WriteLine(string text, int additionalIndent = 0, string prefix = null)
+        {
+            this.Write(text, additionalIndent, prefix);
+
+            // End the line.
+            this.WriteEndLine();
+        }
+
+        /// <summary>
+        /// Write text.
+        /// </summary>
+        /// <param name="text">Content to write</param>
+        /// <param name="additionalIndent">Additional level to indent this content</param>
+        /// <param name="prefix">Optional prefix to write before the indent</param>
+        public void Write(string text, int additionalIndent = 0, string prefix = null)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentException($"Invalid line: '{text}'", nameof(text));
@@ -101,17 +130,25 @@ namespace EnumGenerator.Core.Utilities
             for (int i = 0; i < (this.currentIndent + additionalIndent); i++)
                 this.builder.Append(this.indent);
 
-            // Write the line.
+            // Write the text.
             this.builder.Append(text);
-
-            // End the line.
-            this.builder.Append(this.newline);
         }
+
+        /// <summary>
+        /// Append text to the current line.
+        /// </summary>
+        /// <param name="text">Text to append</param>
+        public void Append(string text) => this.builder.Append(text);
+
+        /// <summary>
+        /// Write a space character.
+        /// </summary>
+        public void WriteSpace() => this.builder.Append(' ');
 
         /// <summary>
         /// Write a empty line.
         /// </summary>
-        public void WriteEmptyLine() => this.builder.Append(this.newline);
+        public void WriteEndLine() => this.builder.Append(this.newline);
 
         /// <summary>
         /// Create a string from the current state of the builder.
