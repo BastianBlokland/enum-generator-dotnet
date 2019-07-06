@@ -20,6 +20,16 @@ namespace EnumGenerator.Tests.Builder
         });
 
         [Fact]
+        public void ThrowsIfExportedWithOutOfBoundsValue() => Assert.Throws<OutOfBoundsValueException>(() =>
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("A", -1);
+            var enumDef = builder.Build();
+
+            enumDef.Export(storageType: StorageType.Byte);
+        });
+
+        [Fact]
         public void BasicEnumIsPresentAfterExporting()
         {
             var builder = new EnumBuilder("TestEnum");
