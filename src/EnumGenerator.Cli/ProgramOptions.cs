@@ -73,6 +73,10 @@ namespace EnumGenerator.Cli
         [Option("storagetype", Required = false, Default = Core.Exporter.StorageType.Implicit, HelpText = "Underlying storage type for the exported enum")]
         public Core.Exporter.StorageType StorageType { get; set; }
 
+        /// <summary>Mode to use when writing curly-brackets</summary>
+        [Option("curlybracket", Required = false, Default = Core.Exporter.CurlyBracketMode.NewLine, HelpText = "Which curlybracket-mode to use")]
+        public Core.Exporter.CurlyBracketMode CurlyBracketMode { get; set; }
+
         /// <summary>Switch to enable verbose logging</summary>
         [Option('v', "verbose", Required = false, HelpText = "Enable verbose output")]
         public bool Verbose { get; set; }
