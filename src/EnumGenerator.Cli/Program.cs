@@ -73,7 +73,8 @@ namespace EnumGenerator.Cli
                     options.IndentMode,
                     options.IndentSize,
                     options.NewlineMode,
-                    options.StorageType);
+                    options.StorageType,
+                    options.CurlyBracketMode);
             }
         }
 
