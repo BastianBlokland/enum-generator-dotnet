@@ -54,6 +54,9 @@
     <!-- 'Implement standard exception constructors' -->
     <Rule Id="CA1032" Action="None" />
 
+    <!-- 'Identifiers should not contain type names' -->
+    <Rule Id="CA1720" Action="None" />
+
   </Rules>
 
 </RuleSet>
