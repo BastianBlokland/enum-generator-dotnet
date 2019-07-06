@@ -15,7 +15,7 @@ namespace EnumGenerator.Core.Definition
         /// <param name="name">Name for the value</param>
         /// <param name="value">Value that this entry represents</param>
         /// <param name="comment">Optional comment about this entry</param>
-        public EnumEntry(string name, int value, string comment = null)
+        public EnumEntry(string name, long value, string comment = null)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException($"Invalid name: '{name}'", nameof(name));
@@ -33,7 +33,7 @@ namespace EnumGenerator.Core.Definition
         /// <summary>
         /// Value that this entry maps to.
         /// </summary>
-        public int Value { get; }
+        public long Value { get; }
 
         /// <summary>
         /// Optional comment about this entry.
@@ -44,7 +44,7 @@ namespace EnumGenerator.Core.Definition
         /// Convert a (name, value) tuple to a <see cref="EnumEntry"/>.
         /// </summary>
         /// <param name="tuple">Tuple to convert</param>
-        public static implicit operator EnumEntry((string name, int value) tuple) =>
+        public static implicit operator EnumEntry((string name, long value) tuple) =>
             new EnumEntry(tuple.name, tuple.value);
 
         /// <summary>Check if two entries are equal.</summary>
@@ -65,7 +65,7 @@ namespace EnumGenerator.Core.Definition
         /// Convert a (name, value) tuple to a <see cref="EnumEntry"/>.
         /// </summary>
         /// <param name="tuple">Tuple to convert</param>
-        public static EnumEntry ToEnumEntry((string name, int value) tuple) =>
+        public static EnumEntry ToEnumEntry((string name, long value) tuple) =>
             new EnumEntry(tuple.name, tuple.value);
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace EnumGenerator.Core.Definition
         /// </summary>
         /// <param name="name">Name of the entry</param>
         /// <param name="value">Value of the entry</param>
-        public void Deconstruct(out string name, out int value)
+        public void Deconstruct(out string name, out long value)
         {
             name = this.Name;
             value = this.Value;

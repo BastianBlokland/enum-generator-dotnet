@@ -12,7 +12,7 @@ namespace EnumGenerator.Core.Builder.Exceptions
         /// </summary>
         /// <param name="enumName">Name of the enum with the duplicated value</param>
         /// <param name="entryValue">Entry value that is duplicated</param>
-        public DuplicateEnumEntryValueException(string enumName, int entryValue)
+        public DuplicateEnumEntryValueException(string enumName, long entryValue)
             : base(message: $"Enum '{enumName}' has duplicated entry-value: '{entryValue}'")
         {
             this.EnumName = enumName;
@@ -27,6 +27,6 @@ namespace EnumGenerator.Core.Builder.Exceptions
         /// <summary>
         /// Entry value that was duplicated.
         /// </summary>
-        public int EntryValue { get; }
+        public long EntryValue { get; }
     }
 }
