@@ -72,7 +72,8 @@ namespace EnumGenerator.Cli
                     options.EnumNamespace,
                     options.IndentMode,
                     options.IndentSize,
-                    options.NewlineMode);
+                    options.NewlineMode,
+                    options.StorageType);
             }
         }
 

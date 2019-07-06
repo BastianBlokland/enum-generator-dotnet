@@ -69,6 +69,10 @@ namespace EnumGenerator.Cli
         [Option("newlinemode", Required = false, Default = CodeBuilder.NewlineMode.Unix, HelpText = "Which newline mode to use when writing output text")]
         public CodeBuilder.NewlineMode NewlineMode { get; set; }
 
+        /// <summary>Storage type for the exported enum</summary>
+        [Option("storagetype", Required = false, Default = Core.Exporter.StorageType.Implicit, HelpText = "Underlying storage type for the exported enum")]
+        public Core.Exporter.StorageType StorageType { get; set; }
+
         /// <summary>Switch to enable verbose logging</summary>
         [Option('v', "verbose", Required = false, HelpText = "Enable verbose output")]
         public bool Verbose { get; set; }
