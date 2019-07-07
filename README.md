@@ -16,13 +16,14 @@ If you have config in json files it can be nice to have a enum to reference in t
 having to hard code values, this tool allows you to generate that enum.
 
 ## Usage
-There are 3 different ways to use the generator:
+There are 4 different ways to use the generator:
 
 | Usecase | Project | Documentation |
 |---------|---------|---------------|
 | Build integration | [**Cli**](https://www.nuget.org/packages/EnumGenerator.Cli/) | [Cli Readme](https://github.com/BastianBlokland/enum-generator-dotnet/tree/master/src/EnumGenerator.Cli/readme.md) |
 | Command line | [**GlobalTool**](https://www.nuget.org/packages/EnumGenerator.GlobalTool/) | [GlobalTool Readme](https://github.com/BastianBlokland/enum-generator-dotnet/tree/master/src/EnumGenerator.GlobalTool/readme.md) |
 | Manual library integration | [**Core**](https://www.nuget.org/packages/EnumGenerator.Core/) | [Core Readme](https://github.com/BastianBlokland/enum-generator-dotnet/tree/master/src/EnumGenerator.Core/readme.md) |
+| Unity3D package | [**UnityPackage**](https://github.com/BastianBlokland/enum-generator-unity) | [UnityPackage Readme](https://github.com/BastianBlokland/enum-generator-unity/blob/master/README.md) |
 
 ## Json file structure
 To be able to handle many different file structures the generator takes in a number of [**JsonPath**](https://goessner.net/articles/JsonPath/) entries:
