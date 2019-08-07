@@ -70,6 +70,7 @@ namespace EnumGenerator.Cli
                     options.EntryCommentJPath,
                     options.EnumComment,
                     options.EnumNamespace,
+                    options.HeaderMode,
                     options.IndentMode,
                     options.IndentSize,
                     options.NewlineMode,

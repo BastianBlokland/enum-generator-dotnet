@@ -8,7 +8,7 @@ namespace EnumGenerator.Tests.Builder
 {
     public sealed class CSharpExporterTests
     {
-        private const string Version = "3.0.0.0";
+        private const string Version = "3.1.0.0";
 
         [Fact]
         public void ThrowsIfExportedWithInvalidNamespace() => Assert.Throws<InvalidNamespaceException>(() =>
@@ -283,6 +283,31 @@ namespace Test {{
 
         B = 2,
     }}
+}}
+",
+                actual: export);
+        }
+
+        [Fact]
+        public void CanBeExportedWithoutHeader()
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("A", 1);
+            builder.PushEntry("B", 2);
+            var enumDef = builder.Build();
+
+            var export = enumDef.ExportCSharp(headerMode: HeaderMode.None);
+
+            Assert.Equal(
+                expected:
+$@"using System.CodeDom.Compiler;
+
+[GeneratedCode(""EnumGenerator.Core"", ""{Version}"")]
+public enum TestEnum
+{{
+    A = 1,
+
+    B = 2,
 }}
 ",
                 actual: export);

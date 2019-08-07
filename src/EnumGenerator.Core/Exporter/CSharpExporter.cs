@@ -24,6 +24,7 @@ namespace EnumGenerator.Core.Exporter
         /// </exception>
         /// <param name="enumDefinition">Enum to generate c# source-code for</param>
         /// <param name="namespace">Optional namespace to add the enum to</param>
+        /// <param name="headerMode">Mode to use when adding a header</param>
         /// <param name="indentMode">Mode to use for indenting</param>
         /// <param name="spaceIndentSize">When indenting with spaces this controls how many</param>
         /// <param name="newlineMode">Mode to use for ending lines</param>
@@ -33,6 +34,7 @@ namespace EnumGenerator.Core.Exporter
         public static string ExportCSharp(
             this EnumDefinition enumDefinition,
             string @namespace = null,
+            HeaderMode headerMode = HeaderMode.Default,
             CodeBuilder.IndentMode indentMode = CodeBuilder.IndentMode.Spaces,
             int spaceIndentSize = 4,
             CodeBuilder.NewlineMode newlineMode = CodeBuilder.NewlineMode.Unix,
@@ -45,8 +47,12 @@ namespace EnumGenerator.Core.Exporter
                 throw new OutOfBoundsValueException(storageType, oobEntry.Value);
 
             var builder = new CodeBuilder(indentMode, spaceIndentSize, newlineMode);
-            builder.AddHeader();
-            builder.WriteEndLine();
+            if (headerMode != HeaderMode.None)
+            {
+                builder.AddHeader();
+                builder.WriteEndLine();
+            }
+
             builder.WriteLine("using System.CodeDom.Compiler;");
             builder.WriteEndLine();
 

@@ -52,6 +52,7 @@ namespace EnumGenerator.Cli
         /// <param name="enumNamespace">
         /// Optional namespace to add the generated enum to.
         /// </param>
+        /// <param name="headerMode">Mode to use when adding a header</param>
         /// <param name="indentMode">Mode to use when indenting text</param>
         /// <param name="indentSize">When indenting with spaces this controls how many</param>
         /// <param name="newlineMode">Mode to use when adding newlines to text</param>
@@ -67,6 +68,7 @@ namespace EnumGenerator.Cli
             string entryCommentJPath,
             string enumComment,
             string enumNamespace,
+            Core.Exporter.HeaderMode headerMode,
             CodeBuilder.IndentMode indentMode,
             int indentSize,
             CodeBuilder.NewlineMode newlineMode,
@@ -129,6 +131,7 @@ namespace EnumGenerator.Cli
             {
                 csharp = enumDefinition.ExportCSharp(
                     enumNamespace,
+                    headerMode,
                     indentMode,
                     indentSize,
                     newlineMode,
