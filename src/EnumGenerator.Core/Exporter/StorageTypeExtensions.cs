@@ -18,21 +18,21 @@ namespace EnumGenerator.Core.Exporter
             {
                 case StorageType.Implicit:
                     return int.MinValue;
-                case StorageType.Byte:
+                case StorageType.Unsigned8Bit:
                     return byte.MinValue;
-                case StorageType.Sbyte:
+                case StorageType.Signed8Bit:
                     return sbyte.MinValue;
-                case StorageType.Short:
+                case StorageType.Signed16Bit:
                     return short.MinValue;
-                case StorageType.Ushort:
+                case StorageType.Unsigned16Bit:
                     return ushort.MinValue;
-                case StorageType.Int:
+                case StorageType.Signed32Bit:
                     return int.MinValue;
-                case StorageType.Uint:
+                case StorageType.Unsigned32Bit:
                     return uint.MinValue;
-                case StorageType.Long:
+                case StorageType.Signed64Bit:
                     return long.MinValue;
-                case StorageType.Ulong:
+                case StorageType.Unsigned64Bit:
                     return 0;
                 default:
                     throw new ArgumentException($"Unsupported storage-type: '{storageType}'", nameof(storageType));
@@ -54,21 +54,21 @@ namespace EnumGenerator.Core.Exporter
             {
                 case StorageType.Implicit:
                     return int.MaxValue;
-                case StorageType.Byte:
+                case StorageType.Unsigned8Bit:
                     return byte.MaxValue;
-                case StorageType.Sbyte:
+                case StorageType.Signed8Bit:
                     return sbyte.MaxValue;
-                case StorageType.Short:
+                case StorageType.Signed16Bit:
                     return short.MaxValue;
-                case StorageType.Ushort:
+                case StorageType.Unsigned16Bit:
                     return ushort.MaxValue;
-                case StorageType.Int:
+                case StorageType.Signed32Bit:
                     return int.MaxValue;
-                case StorageType.Uint:
+                case StorageType.Unsigned32Bit:
                     return uint.MaxValue;
-                case StorageType.Long:
+                case StorageType.Signed64Bit:
                     return long.MaxValue;
-                case StorageType.Ulong:
+                case StorageType.Unsigned64Bit:
                     /*  Note: We do not support numbers larger then long.MaxValue as we internally use
                     long's to represent the values. */
                     return long.MaxValue;
@@ -82,28 +82,28 @@ namespace EnumGenerator.Core.Exporter
         /// </summary>
         /// <param name="storageType">Storage-type to get the keyword for</param>
         /// <returns>Csharp keyword for the given storage-type</returns>
-        public static string GetKeyword(this StorageType storageType)
+        public static string GetCSharpKeyword(this StorageType storageType)
         {
             switch (storageType)
             {
-                case StorageType.Byte:
+                case StorageType.Unsigned8Bit:
                     return "byte";
-                case StorageType.Sbyte:
+                case StorageType.Signed8Bit:
                     return "sbyte";
-                case StorageType.Short:
+                case StorageType.Signed16Bit:
                     return "short";
-                case StorageType.Ushort:
+                case StorageType.Unsigned16Bit:
                     return "ushort";
-                case StorageType.Int:
+                case StorageType.Signed32Bit:
                     return "int";
-                case StorageType.Uint:
+                case StorageType.Unsigned32Bit:
                     return "uint";
-                case StorageType.Long:
+                case StorageType.Signed64Bit:
                     return "long";
-                case StorageType.Ulong:
+                case StorageType.Unsigned64Bit:
                     return "ulong";
                 default:
-                    throw new ArgumentException($"Storage-type: '{storageType}' has no keyword", nameof(storageType));
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no keyword in csharp", nameof(storageType));
             }
         }
     }

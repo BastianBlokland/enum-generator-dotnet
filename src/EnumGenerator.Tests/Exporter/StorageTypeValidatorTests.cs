@@ -22,44 +22,44 @@ namespace EnumGenerator.Tests.Builder
         {
             // Min values are valid.
             yield return (StorageType.Implicit, int.MinValue, valid: true);
-            yield return (StorageType.Byte, byte.MinValue, valid: true);
-            yield return (StorageType.Sbyte, sbyte.MinValue, valid: true);
-            yield return (StorageType.Short, short.MinValue, valid: true);
-            yield return (StorageType.Ushort, ushort.MinValue, valid: true);
-            yield return (StorageType.Int, int.MinValue, valid: true);
-            yield return (StorageType.Uint, uint.MinValue, valid: true);
-            yield return (StorageType.Long, long.MinValue, valid: true);
-            yield return (StorageType.Ulong, 0, valid: true);
+            yield return (StorageType.Unsigned8Bit, byte.MinValue, valid: true);
+            yield return (StorageType.Signed8Bit, sbyte.MinValue, valid: true);
+            yield return (StorageType.Signed16Bit, short.MinValue, valid: true);
+            yield return (StorageType.Unsigned16Bit, ushort.MinValue, valid: true);
+            yield return (StorageType.Signed32Bit, int.MinValue, valid: true);
+            yield return (StorageType.Unsigned32Bit, uint.MinValue, valid: true);
+            yield return (StorageType.Signed64Bit, long.MinValue, valid: true);
+            yield return (StorageType.Unsigned64Bit, 0, valid: true);
 
             // Max values are valid.
             yield return (StorageType.Implicit, int.MaxValue, valid: true);
-            yield return (StorageType.Byte, byte.MaxValue, valid: true);
-            yield return (StorageType.Sbyte, sbyte.MaxValue, valid: true);
-            yield return (StorageType.Short, short.MaxValue, valid: true);
-            yield return (StorageType.Ushort, ushort.MaxValue, valid: true);
-            yield return (StorageType.Int, int.MaxValue, valid: true);
-            yield return (StorageType.Uint, uint.MaxValue, valid: true);
-            yield return (StorageType.Long, long.MaxValue, valid: true);
-            yield return (StorageType.Ulong, long.MaxValue, valid: true);
+            yield return (StorageType.Unsigned8Bit, byte.MaxValue, valid: true);
+            yield return (StorageType.Signed8Bit, sbyte.MaxValue, valid: true);
+            yield return (StorageType.Signed16Bit, short.MaxValue, valid: true);
+            yield return (StorageType.Unsigned16Bit, ushort.MaxValue, valid: true);
+            yield return (StorageType.Signed32Bit, int.MaxValue, valid: true);
+            yield return (StorageType.Unsigned32Bit, uint.MaxValue, valid: true);
+            yield return (StorageType.Signed64Bit, long.MaxValue, valid: true);
+            yield return (StorageType.Unsigned64Bit, long.MaxValue, valid: true);
 
             // Too small is invalid.
             yield return (StorageType.Implicit, long.MinValue, valid: false);
-            yield return (StorageType.Byte, long.MinValue, valid: false);
-            yield return (StorageType.Sbyte, long.MinValue, valid: false);
-            yield return (StorageType.Short, long.MinValue, valid: false);
-            yield return (StorageType.Ushort, long.MinValue, valid: false);
-            yield return (StorageType.Int, long.MinValue, valid: false);
-            yield return (StorageType.Uint, long.MinValue, valid: false);
-            yield return (StorageType.Ulong, long.MinValue, valid: false);
+            yield return (StorageType.Unsigned8Bit, long.MinValue, valid: false);
+            yield return (StorageType.Signed8Bit, long.MinValue, valid: false);
+            yield return (StorageType.Signed16Bit, long.MinValue, valid: false);
+            yield return (StorageType.Unsigned16Bit, long.MinValue, valid: false);
+            yield return (StorageType.Signed32Bit, long.MinValue, valid: false);
+            yield return (StorageType.Unsigned32Bit, long.MinValue, valid: false);
+            yield return (StorageType.Unsigned64Bit, long.MinValue, valid: false);
 
             // Too big in invalid.
             yield return (StorageType.Implicit, long.MaxValue, valid: false);
-            yield return (StorageType.Byte, long.MaxValue, valid: false);
-            yield return (StorageType.Sbyte, long.MaxValue, valid: false);
-            yield return (StorageType.Short, long.MaxValue, valid: false);
-            yield return (StorageType.Ushort, long.MaxValue, valid: false);
-            yield return (StorageType.Int, long.MaxValue, valid: false);
-            yield return (StorageType.Uint, long.MaxValue, valid: false);
+            yield return (StorageType.Unsigned8Bit, long.MaxValue, valid: false);
+            yield return (StorageType.Signed8Bit, long.MaxValue, valid: false);
+            yield return (StorageType.Signed16Bit, long.MaxValue, valid: false);
+            yield return (StorageType.Unsigned16Bit, long.MaxValue, valid: false);
+            yield return (StorageType.Signed32Bit, long.MaxValue, valid: false);
+            yield return (StorageType.Unsigned32Bit, long.MaxValue, valid: false);
         }
     }
 }

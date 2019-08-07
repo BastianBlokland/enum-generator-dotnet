@@ -30,7 +30,7 @@ namespace EnumGenerator.Core.Exporter
         /// <param name="storageType">Underlying enum storage-type to use</param>
         /// <param name="curlyBracketMode">Mode to use when writing curly brackets</param>
         /// <returns>String containing the genenerated c# sourcecode</returns>
-        public static string Export(
+        public static string ExportCSharp(
             this EnumDefinition enumDefinition,
             string @namespace = null,
             CodeBuilder.IndentMode indentMode = CodeBuilder.IndentMode.Spaces,
@@ -95,7 +95,7 @@ namespace EnumGenerator.Core.Exporter
             if (storageType == StorageType.Implicit)
                 builder.Write($"public enum {enumDefinition.Identifier}");
             else
-                builder.Write($"public enum {enumDefinition.Identifier} : {storageType.GetKeyword()}");
+                builder.Write($"public enum {enumDefinition.Identifier} : {storageType.GetCSharpKeyword()}");
             builder.StartScope(curlyBracketMode);
 
             var first = true;
