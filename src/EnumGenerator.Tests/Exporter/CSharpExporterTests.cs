@@ -17,7 +17,7 @@ namespace EnumGenerator.Tests.Builder
             builder.PushEntry("A", 1);
             var enumDef = builder.Build();
 
-            enumDef.Export(@namespace: "0Test");
+            enumDef.ExportCSharp(@namespace: "0Test");
         });
 
         [Fact]
@@ -27,7 +27,7 @@ namespace EnumGenerator.Tests.Builder
             builder.PushEntry("A", -1);
             var enumDef = builder.Build();
 
-            enumDef.Export(storageType: StorageType.Byte);
+            enumDef.ExportCSharp(storageType: StorageType.Byte);
         });
 
         [Fact]
@@ -38,7 +38,7 @@ namespace EnumGenerator.Tests.Builder
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export();
+            var export = enumDef.ExportCSharp();
 
             Assert.Equal(
                 expected:
@@ -69,7 +69,7 @@ public enum TestEnum
             builder.PushEntry("B", -2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export();
+            var export = enumDef.ExportCSharp();
 
             Assert.Equal(
                 expected:
@@ -100,7 +100,7 @@ public enum TestEnum
             builder.PushEntry("B", 2, "This is entry B.");
             var enumDef = builder.Build();
 
-            var export = enumDef.Export();
+            var export = enumDef.ExportCSharp();
 
             Assert.Equal(
                 expected:
@@ -137,7 +137,7 @@ public enum TestEnum
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export(indentMode: Core.Utilities.CodeBuilder.IndentMode.Tabs);
+            var export = enumDef.ExportCSharp(indentMode: Core.Utilities.CodeBuilder.IndentMode.Tabs);
 
             Assert.Equal(
                 expected:
@@ -168,7 +168,7 @@ public enum TestEnum
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export(spaceIndentSize: 2);
+            var export = enumDef.ExportCSharp(spaceIndentSize: 2);
 
             Assert.Equal(
                 expected:
@@ -199,7 +199,7 @@ public enum TestEnum
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export(@namespace: "A.B.C");
+            var export = enumDef.ExportCSharp(@namespace: "A.B.C");
 
             Assert.Equal(
                 expected:
@@ -233,7 +233,7 @@ namespace A.B.C
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export(storageType: StorageType.Byte);
+            var export = enumDef.ExportCSharp(storageType: StorageType.Byte);
 
             Assert.Equal(
                 expected:
@@ -264,7 +264,7 @@ public enum TestEnum : byte
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.Export(@namespace: "Test", curlyBracketMode: CurlyBracketMode.SameLine);
+            var export = enumDef.ExportCSharp(@namespace: "Test", curlyBracketMode: CurlyBracketMode.SameLine);
 
             Assert.Equal(
                 expected:

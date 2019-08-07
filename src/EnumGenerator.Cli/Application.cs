@@ -127,7 +127,7 @@ namespace EnumGenerator.Cli
             string csharp = null;
             try
             {
-                csharp = enumDefinition.Export(
+                csharp = enumDefinition.ExportCSharp(
                     enumNamespace,
                     indentMode,
                     indentSize,
