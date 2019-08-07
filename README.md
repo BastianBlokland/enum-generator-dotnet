@@ -9,7 +9,7 @@
 |----------|-------------|--------------|
 | [![NuGet](https://img.shields.io/nuget/v/EnumGenerator.Cli.svg)](https://www.nuget.org/packages/EnumGenerator.Cli/) | [![NuGet](https://img.shields.io/nuget/v/EnumGenerator.GlobalTool.svg)](https://www.nuget.org/packages/EnumGenerator.GlobalTool/) | [![NuGet](https://img.shields.io/nuget/v/EnumGenerator.Core.svg)](https://www.nuget.org/packages/EnumGenerator.Core/) |
 
-Dotnet cli tool for generating c# enums from json files.
+Dotnet cli tool for generating c# / cil enums from json files.
 
 ## Description
 If you have config in json files it can be nice to have a enum to reference in the code instead of

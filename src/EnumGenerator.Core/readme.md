@@ -1,6 +1,6 @@
 # **EnumGenerator** Core library.
 
-Library that can be used to generate c# enum files based on json files.
+Library that can be used to generate c# / cil enum files based on json files.
 
 Can be used for more complex integration into a build pipeline, for simple use-cases consider one of the pre-made tools:
 * [**EnumGenerator.Cli**](https://www.nuget.org/packages/EnumGenerator.Cli/)
@@ -40,9 +40,15 @@ var inputJson = File.ReadAllText("input.json");
 var enumDefinition = context.MapEnum(inputJson, "TestEnum");
 ```
 
-4. Export the enum:
+4. Export the csharp enum:
 ```c#
-var csharp = enumDefinition.Export();
+var csharp = enumDefinition.ExportCSharp();
+```
+or
+
+4. Export the cil enum:
+```c#
+var cil = enumDefinition.ExportCil(assemblyName: "TestEnum");
 ```
 
 ## Help
