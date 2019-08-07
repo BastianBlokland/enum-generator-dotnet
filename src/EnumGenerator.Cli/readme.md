@@ -6,7 +6,7 @@ Can be used to generate c# enum files from json files.
 
 Add a reference to the cli-tool to a `ItemGroup` section your of your csproj.
 ```xml
-<DotNetCliToolReference Include="EnumGenerator.Cli" Version="3.1.*" />
+<DotNetCliToolReference Include="EnumGenerator.Cli" Version="3.2.*" />
 ```
 
 ## Usage

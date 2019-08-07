@@ -48,7 +48,7 @@ namespace EnumGenerator.Core.Utilities
         /// <returns>'True' if valid, otherwise 'False'</returns>
         public static bool ValidateCharacter(char character)
         {
-            // Validate the unicode category, following the c# rules of allowing these categories:
+            // Validate the unicode category, following the cls rules of allowing these categories:
             // Lu, Ll, Lt, Lm, Lo, Nl, Mn, Mc, Nd, Pc, and Cf
             var charCat = char.GetUnicodeCategory(character);
             return
