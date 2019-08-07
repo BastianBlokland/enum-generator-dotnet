@@ -86,6 +86,8 @@ namespace EnumGenerator.Core.Exporter
         {
             switch (storageType)
             {
+                case StorageType.Implicit:
+                    return "int";
                 case StorageType.Unsigned8Bit:
                     return "byte";
                 case StorageType.Signed8Bit:
@@ -104,6 +106,38 @@ namespace EnumGenerator.Core.Exporter
                     return "ulong";
                 default:
                     throw new ArgumentException($"Storage-type: '{storageType}' has no keyword in csharp", nameof(storageType));
+            }
+        }
+
+        /// <summary>
+        /// Get the cil keyword for the given storage-type.
+        /// </summary>
+        /// <param name="storageType">Storage-type to get the keyword for</param>
+        /// <returns>Cil keyword for the given storage-type</returns>
+        public static string GetCilKeyword(this StorageType storageType)
+        {
+            switch (storageType)
+            {
+                case StorageType.Implicit:
+                    return "int32";
+                case StorageType.Unsigned8Bit:
+                    return "uint8";
+                case StorageType.Signed8Bit:
+                    return "int8";
+                case StorageType.Signed16Bit:
+                    return "int16";
+                case StorageType.Unsigned16Bit:
+                    return "uint16";
+                case StorageType.Signed32Bit:
+                    return "int32";
+                case StorageType.Unsigned32Bit:
+                    return "uint32";
+                case StorageType.Signed64Bit:
+                    return "int64";
+                case StorageType.Unsigned64Bit:
+                    return "uint64";
+                default:
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no keyword in cil", nameof(storageType));
             }
         }
     }

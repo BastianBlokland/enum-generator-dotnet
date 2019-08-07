@@ -64,6 +64,7 @@ namespace EnumGenerator.Cli
                 return provider.GetService<Application>().Run(
                     options.InputFile,
                     options.OutputFile,
+                    options.OutputType,
                     options.CollectionJPath,
                     options.EntryNameJPath,
                     options.EntryValueJPath,

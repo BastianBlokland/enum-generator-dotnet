@@ -2,16 +2,18 @@
     // Common plugins
     "dotnet-test-explorer.testProjectPath": "src/EnumGenerator.Tests/EnumGenerator.Tests.csproj",
     "cSpell.words": [
-        "cobertura",
-        "codecov",
-        "crit",
-        "entrycomment",
-        "entryname",
-        "entryvalue",
-        "enumgeneratordotnet",
-        "nuget",
-        "unduplicate",
-        "unduplicated"
+      "cobertura",
+      "codecov",
+      "crit",
+      "entrycomment",
+      "entryname",
+      "entryvalue",
+      "enumgeneratordotnet",
+      "mscorlib",
+      "nuget",
+      "rtspecialname",
+      "unduplicate",
+      "unduplicated"
     ],
     // Search settings
     "search.useIgnoreFiles": false,

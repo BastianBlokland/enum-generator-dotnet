@@ -37,6 +37,7 @@ namespace EnumGenerator.Cli
         /// </summary>
         /// <param name="inputFile">Path to the json file to generate the enum for</param>
         /// <param name="outputFile">Path where to save the generated enum</param>
+        /// <param name="outputType">Type of output file to generate</param>
         /// <param name="collectionJPath">JPath to the collection in the input file</param>
         /// <param name="entryNameJPath">
         /// JPath to the name field in an entry in the input file</param>
@@ -62,6 +63,7 @@ namespace EnumGenerator.Cli
         public int Run(
             string inputFile,
             string outputFile,
+            OutputType outputType,
             string collectionJPath,
             string entryNameJPath,
             string entryValueJPath,
@@ -125,35 +127,62 @@ namespace EnumGenerator.Cli
                 return 1;
             }
 
-            // Export to c#.
-            string csharp = null;
-            try
+            // Export source-code.
+            string output = null;
+            switch (outputType)
             {
-                csharp = enumDefinition.ExportCSharp(
-                    enumNamespace,
-                    headerMode,
-                    indentMode,
-                    indentSize,
-                    newlineMode,
-                    storageType,
-                    curlyBracketMode);
-            }
-            catch (Exception e)
-            {
-                this.logger.LogCritical($"Failed to generate c#: {e.Message}");
-                return 1;
+                case OutputType.CSharp:
+                    try
+                    {
+                        output = enumDefinition.ExportCSharp(
+                            enumNamespace,
+                            headerMode,
+                            indentMode,
+                            indentSize,
+                            newlineMode,
+                            storageType,
+                            curlyBracketMode);
+                    }
+                    catch (Exception e)
+                    {
+                        this.logger.LogCritical($"Failed to generate csharp: {e.Message}");
+                        return 1;
+                    }
+
+                    break;
+
+                case OutputType.Cil:
+                    try
+                    {
+                        output = enumDefinition.ExportCil(
+                            assemblyName: enumName,
+                            enumNamespace,
+                            headerMode,
+                            indentMode,
+                            indentSize,
+                            newlineMode,
+                            storageType,
+                            curlyBracketMode);
+                    }
+                    catch (Exception e)
+                    {
+                        this.logger.LogCritical($"Failed to generate cil: {e.Message}");
+                        return 1;
+                    }
+
+                    break;
             }
 
-            // Save the enum as a c# file.
+            // Save to file.
             try
             {
-                if (!fullOutputPath.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
-                    fullOutputPath = $"{fullOutputPath}.g.cs";
+                if (!fullOutputPath.EndsWith(GetRequiredExtension(outputType), StringComparison.OrdinalIgnoreCase))
+                    fullOutputPath = $"{fullOutputPath}{GetDesiredExtension(outputType)}";
                 Directory.GetParent(fullOutputPath).Create();
                 using (var stream = new FileStream(fullOutputPath, FileMode.Create, FileAccess.Write))
                 using (var writer = new StreamWriter(stream, Utf8NoBom))
                 {
-                    writer.Write(csharp);
+                    writer.Write(output);
                 }
 
                 this.logger.LogInformation($"Written enum to: '{fullOutputPath}'");
@@ -212,6 +241,32 @@ namespace EnumGenerator.Cli
 
                 this.logger.LogCritical($"Unable to create valid identifier from file-name: '{fileName}'");
                 return null;
+            }
+        }
+
+        private static string GetRequiredExtension(OutputType outputType)
+        {
+            switch (outputType)
+            {
+                case OutputType.CSharp:
+                    return ".cs";
+                case OutputType.Cil:
+                    return ".il";
+                default:
+                    throw new InvalidOperationException($"Unknown output: '{outputType}'.");
+            }
+        }
+
+        private static string GetDesiredExtension(OutputType outputType)
+        {
+            switch (outputType)
+            {
+                case OutputType.CSharp:
+                    return ".g.cs";
+                case OutputType.Cil:
+                    return ".g.il";
+                default:
+                    throw new InvalidOperationException($"Unknown output: '{outputType}'.");
             }
         }
 

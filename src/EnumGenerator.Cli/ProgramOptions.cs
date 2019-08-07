@@ -33,6 +33,10 @@ namespace EnumGenerator.Cli
         [Option('o', "output", Required = true, HelpText = "Target path for the generated enum.")]
         public string OutputFile { get; set; }
 
+        /// <summary>Type of output file to generate</summary>
+        [Option('t', "type", Required = false, Default = OutputType.CSharp, HelpText = "Type of output file to generate.")]
+        public OutputType OutputType { get; set; }
+
         /// <summary>JPath to the collection to base the enum on</summary>
         [Option('c', "collection", Required = false, Default = "[*]", HelpText = "JPath to the collection to base the enum on.")]
         public string CollectionJPath { get; set; }
