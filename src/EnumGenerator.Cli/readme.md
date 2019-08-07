@@ -1,6 +1,6 @@
 # **EnumGenerator** Cli tool.
 
-Can be used to generate c# enum files from json files.
+Can be used to generate c# / cil enum files from json files.
 
 ## Installation
 
@@ -20,6 +20,8 @@ There two ways to invoke the tool:
     -o example.g.cs"/>
 </Target>
 ```
+
+To generate a cil file use the `-t cil` argument.
 
 ## Help
 For additional info on the arguments run `dotnet enum-generator --help`

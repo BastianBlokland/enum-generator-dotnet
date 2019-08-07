@@ -1,6 +1,6 @@
 # **EnumGenerator** Global tool.
 
-Can be used to generate c# enum files from json files.
+Can be used to generate c# / cil enum files from json files.
 
 ## Installation
 
@@ -14,6 +14,8 @@ Invoke the tool using the `enum-generator` alias
 ```bash
 enum-generator -i example.enum -o example.g.cs
 ```
+
+To generate a cil file use the `-t cil` argument.
 
 ## Help
 For additional info on the arguments run `enum-generator --help`
