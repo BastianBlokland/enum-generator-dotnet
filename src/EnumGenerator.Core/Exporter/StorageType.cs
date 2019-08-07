@@ -6,48 +6,48 @@ namespace EnumGenerator.Core.Exporter
     public enum StorageType
     {
         /// <summary>
-        /// Don't output a specific storage type. (This will let the c# compiler decide)
+        /// Don't output a specific storage type.
         /// </summary>
         Implicit = 0,
 
         /// <summary>
-        /// Specify 'byte' as the underlying storage type for the enum.
+        /// Specify 'unsigned 8 bit' as the underlying storage type for the enum.
         /// </summary>
-        Byte = 1,
+        Unsigned8Bit = 1,
 
         /// <summary>
-        /// Specify 'sbyte' as the underlying storage type for the enum.
+        /// Specify 'signed 8 bit' as the underlying storage type for the enum.
         /// </summary>
-        Sbyte = 2,
+        Signed8Bit = 2,
 
         /// <summary>
-        /// Specify 'short' as the underlying storage type for the enum.
+        /// Specify 'signed 16 bit' as the underlying storage type for the enum.
         /// </summary>
-        Short = 3,
+        Signed16Bit = 3,
 
         /// <summary>
-        /// Specify 'ushort' as the underlying storage type for the enum.
+        /// Specify 'unsigned 16 bit' as the underlying storage type for the enum.
         /// </summary>
-        Ushort = 4,
+        Unsigned16Bit = 4,
 
         /// <summary>
-        /// Specify 'int' as the underlying storage type for the enum.
+        /// Specify 'signed 32 bit' as the underlying storage type for the enum.
         /// </summary>
-        Int = 5,
+        Signed32Bit = 5,
 
         /// <summary>
-        /// Specify 'uint' as the underlying storage type for the enum.
+        /// Specify 'unsigned 32 bit' as the underlying storage type for the enum.
         /// </summary>
-        Uint = 6,
+        Unsigned32Bit = 6,
 
         /// <summary>
-        /// Specify 'long' as the underlying storage type for the enum.
+        /// Specify 'signed 64 bit' as the underlying storage type for the enum.
         /// </summary>
-        Long = 7,
+        Signed64Bit = 7,
 
         /// <summary>
-        /// Specify 'ulong' as the underlying storage type for the enum.
+        /// Specify 'unsigned 64 bit' as the underlying storage type for the enum.
         /// </summary>
-        Ulong = 8
+        Unsigned64Bit = 8
     }
 }

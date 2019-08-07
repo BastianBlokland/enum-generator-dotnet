@@ -27,7 +27,7 @@ namespace EnumGenerator.Tests.Builder
             builder.PushEntry("A", -1);
             var enumDef = builder.Build();
 
-            enumDef.ExportCSharp(storageType: StorageType.Byte);
+            enumDef.ExportCSharp(storageType: StorageType.Unsigned8Bit);
         });
 
         [Fact]
@@ -233,7 +233,7 @@ namespace A.B.C
             builder.PushEntry("B", 2);
             var enumDef = builder.Build();
 
-            var export = enumDef.ExportCSharp(storageType: StorageType.Byte);
+            var export = enumDef.ExportCSharp(storageType: StorageType.Unsigned8Bit);
 
             Assert.Equal(
                 expected:

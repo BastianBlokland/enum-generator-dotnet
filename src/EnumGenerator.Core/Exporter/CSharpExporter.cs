@@ -95,7 +95,7 @@ namespace EnumGenerator.Core.Exporter
             if (storageType == StorageType.Implicit)
                 builder.Write($"public enum {enumDefinition.Identifier}");
             else
-                builder.Write($"public enum {enumDefinition.Identifier} : {storageType.GetKeyword()}");
+                builder.Write($"public enum {enumDefinition.Identifier} : {storageType.GetCSharpKeyword()}");
             builder.StartScope(curlyBracketMode);
 
             var first = true;
