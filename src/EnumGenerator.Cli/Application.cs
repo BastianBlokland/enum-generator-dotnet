@@ -194,6 +194,20 @@ namespace EnumGenerator.Cli
                             return null;
                         }
 
+                    case OutputType.ClassLibrary:
+                        try
+                        {
+                            return enumDef.ExportClassLibrary(
+                                assemblyName: enumName,
+                                enumNamespace,
+                                storageType);
+                        }
+                        catch (Exception e)
+                        {
+                            this.logger.LogCritical($"Failed to generate class-library: {e.Message}");
+                            return null;
+                        }
+
                     default:
                         this.logger.LogCritical($"Unsupported output-type '{outputType}'");
                         return null;
@@ -257,6 +271,8 @@ namespace EnumGenerator.Cli
                     return ".cs";
                 case OutputType.Cil:
                     return ".il";
+                case OutputType.ClassLibrary:
+                    return ".dll";
                 default:
                     throw new InvalidOperationException($"Unknown output: '{outputType}'.");
             }
@@ -270,6 +286,8 @@ namespace EnumGenerator.Cli
                     return ".g.cs";
                 case OutputType.Cil:
                     return ".g.il";
+                case OutputType.ClassLibrary:
+                    return ".dll";
                 default:
                     throw new InvalidOperationException($"Unknown output: '{outputType}'.");
             }

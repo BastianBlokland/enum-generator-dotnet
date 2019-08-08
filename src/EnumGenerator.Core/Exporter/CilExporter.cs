@@ -25,7 +25,7 @@ namespace EnumGenerator.Core.Exporter
         /// Thrown when enum value does not fit in given storage-type.
         /// </exception>
         /// <param name="enumDefinition">Enum to generate cil source-code for</param>
-        /// <param name="assemblyName">Name of the assembly of cil</param>
+        /// <param name="assemblyName">Name of the assembly to generate</param>
         /// <param name="namespace">Optional namespace to add the enum to</param>
         /// <param name="headerMode">Mode to use when adding a header</param>
         /// <param name="indentMode">Mode to use for indenting</param>

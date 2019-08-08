@@ -21,6 +21,16 @@ namespace EnumGenerator.Tests.Builder
         });
 
         [Fact]
+        public void ThrowsIfExportedWithInvalidAssemblyName() => Assert.Throws<InvalidAssemblyNameException>(() =>
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("A", 1);
+            var enumDef = builder.Build();
+
+            enumDef.ExportCil(@namespace: "Test", assemblyName: "0Test");
+        });
+
+        [Fact]
         public void ThrowsIfExportedWithOutOfBoundsValue() => Assert.Throws<OutOfBoundsValueException>(() =>
         {
             var builder = new EnumBuilder("TestEnum");
@@ -50,11 +60,12 @@ $@"//---------------------------------------------------------------------------
 
 .assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test
 {{
     .ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed TestEnum extends [mscorlib]System.Enum
 {{
@@ -89,11 +100,12 @@ $@"//---------------------------------------------------------------------------
 
 .assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test
 {{
 	.ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed TestEnum extends [mscorlib]System.Enum
 {{
@@ -128,11 +140,12 @@ $@"//---------------------------------------------------------------------------
 
 .assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test
 {{
   .ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed TestEnum extends [mscorlib]System.Enum
 {{
@@ -167,11 +180,12 @@ $@"//---------------------------------------------------------------------------
 
 .assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test
 {{
     .ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed A.B.C.TestEnum extends [mscorlib]System.Enum
 {{
@@ -206,11 +220,12 @@ $@"//---------------------------------------------------------------------------
 
 .assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test
 {{
     .ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed TestEnum extends [mscorlib]System.Enum
 {{
@@ -246,10 +261,11 @@ $@"//---------------------------------------------------------------------------
 
 .assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test {{
     .ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed Test.TestEnum extends [mscorlib]System.Enum {{
     .field public specialname rtspecialname int32 value__
@@ -277,11 +293,12 @@ $@"//---------------------------------------------------------------------------
                 expected:
 $@".assembly extern mscorlib {{ }}
 
-.module Test.dll
 .assembly Test
 {{
     .ver 1:0:0:0
 }}
+
+.module Test.dll
 
 .class public sealed TestEnum extends [mscorlib]System.Enum
 {{
