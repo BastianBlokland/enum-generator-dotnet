@@ -47,7 +47,7 @@
 
   <ItemGroup>
     <!-- Tools -->
-    <DotNetCliToolReference Include="EnumGenerator.Cli" Version="3.2.*" />
+    <DotNetCliToolReference Include="EnumGenerator.Cli" Version="3.3.*" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace EnumGenerator.Tests.Builder
 {
     public sealed class CilExporterTests
     {
-        private const string Version = "3.2.0.0";
+        private const string Version = "3.3.0.0";
 
         [Fact]
         public void ThrowsIfExportedWithInvalidNamespace() => Assert.Throws<InvalidNamespaceException>(() =>
