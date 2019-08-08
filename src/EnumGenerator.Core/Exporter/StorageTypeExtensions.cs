@@ -140,5 +140,108 @@ namespace EnumGenerator.Core.Exporter
                     throw new ArgumentException($"Storage-type: '{storageType}' has no keyword in cil", nameof(storageType));
             }
         }
+
+        /// <summary>
+        /// Get the dotnet type for the given storage-type.
+        /// </summary>
+        /// <param name="storageType">Storage-type to get the type for</param>
+        /// <returns>Dotnet type for the given storage-type</returns>
+        public static Type GetDotnetType(this StorageType storageType)
+        {
+            switch (storageType)
+            {
+                case StorageType.Implicit:
+                    return typeof(int);
+                case StorageType.Unsigned8Bit:
+                    return typeof(byte);
+                case StorageType.Signed8Bit:
+                    return typeof(sbyte);
+                case StorageType.Signed16Bit:
+                    return typeof(short);
+                case StorageType.Unsigned16Bit:
+                    return typeof(ushort);
+                case StorageType.Signed32Bit:
+                    return typeof(int);
+                case StorageType.Unsigned32Bit:
+                    return typeof(uint);
+                case StorageType.Signed64Bit:
+                    return typeof(long);
+                case StorageType.Unsigned64Bit:
+                    return typeof(ulong);
+                default:
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no type in dotnet", nameof(storageType));
+            }
+        }
+
+        /// <summary>
+        /// Cast the given value to the type matching the storage-type.
+        /// </summary>
+        /// <param name="storageType">Storage-type to cast the value to</param>
+        /// <param name="value">Value to cast</param>
+        /// <returns>Boxed casted value</returns>
+        public static object Cast(this StorageType storageType, long value)
+        {
+            switch (storageType)
+            {
+                case StorageType.Implicit:
+                    return (int)value;
+                case StorageType.Unsigned8Bit:
+                    return (byte)value;
+                case StorageType.Signed8Bit:
+                    return (sbyte)value;
+                case StorageType.Signed16Bit:
+                    return (short)value;
+                case StorageType.Unsigned16Bit:
+                    return (ushort)value;
+                case StorageType.Signed32Bit:
+                    return (int)value;
+                case StorageType.Unsigned32Bit:
+                    return (uint)value;
+                case StorageType.Signed64Bit:
+                    return (long)value;
+                case StorageType.Unsigned64Bit:
+                    return (ulong)value;
+                default:
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no type to cast to", nameof(storageType));
+            }
+        }
+
+        /// <summary>
+        /// Get a mono-cecil type-reference for the given storage type.
+        /// </summary>
+        /// <param name="storageType">Storage-type to get the type for</param>
+        /// <param name="typeSystem">TypeSystem to get the reference from</param>
+        /// <returns>Mono cecil type-reference for the storage-type</returns>
+        internal static Mono.Cecil.TypeReference GetCecilTypeReference(
+            this StorageType storageType,
+            Mono.Cecil.TypeSystem typeSystem)
+        {
+            if (typeSystem is null)
+                throw new ArgumentNullException(nameof(typeSystem));
+
+            switch (storageType)
+            {
+                case StorageType.Implicit:
+                    return typeSystem.Int32;
+                case StorageType.Unsigned8Bit:
+                    return typeSystem.Byte;
+                case StorageType.Signed8Bit:
+                    return typeSystem.SByte;
+                case StorageType.Signed16Bit:
+                    return typeSystem.Int16;
+                case StorageType.Unsigned16Bit:
+                    return typeSystem.UInt16;
+                case StorageType.Signed32Bit:
+                    return typeSystem.Int32;
+                case StorageType.Unsigned32Bit:
+                    return typeSystem.UInt32;
+                case StorageType.Signed64Bit:
+                    return typeSystem.Int64;
+                case StorageType.Unsigned64Bit:
+                    return typeSystem.UInt64;
+                default:
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no type", nameof(storageType));
+            }
+        }
     }
 }

@@ -11,11 +11,11 @@ Can be used for more complex integration into a build pipeline, for simple use-c
 There are two ways to add the nuget package:
 1. Run:
 ```bash
-dotnet add package EnumGenerator.Core --version '3.2.*'
+dotnet add package EnumGenerator.Core --version '3.3.*'
 ```
 2. Add the following to a `ItemGroup` section of your csproj:
 ```xml
-<PackageReference Include="EnumGenerator.Core" Version="3.2.*" />
+<PackageReference Include="EnumGenerator.Core" Version="3.3.*" />
 ```
 
 ## Usage
@@ -45,11 +45,16 @@ var enumDefinition = context.MapEnum(inputJson, "TestEnum");
 var csharp = enumDefinition.ExportCSharp();
 ```
 or
-
 4. Export the cil enum:
 ```c#
 var cil = enumDefinition.ExportCil(assemblyName: "TestEnum");
 ```
+or
+4. Export a class-library:
+```c#
+var assemblyFile = enumDefinition.ExportClassLibrary(assemblyName: "TestEnum");
+```
+or
 
 ## Help
 For more general documentation and examples visit the github project [**enum-generator-dotnet**](https://github.com/BastianBlokland/enum-generator-dotnet).
