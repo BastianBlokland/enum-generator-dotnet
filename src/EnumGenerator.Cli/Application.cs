@@ -127,51 +127,10 @@ namespace EnumGenerator.Cli
                 return 1;
             }
 
-            // Export source-code.
-            string output = null;
-            switch (outputType)
-            {
-                case OutputType.CSharp:
-                    try
-                    {
-                        output = enumDefinition.ExportCSharp(
-                            enumNamespace,
-                            headerMode,
-                            indentMode,
-                            indentSize,
-                            newlineMode,
-                            storageType,
-                            curlyBracketMode);
-                    }
-                    catch (Exception e)
-                    {
-                        this.logger.LogCritical($"Failed to generate csharp: {e.Message}");
-                        return 1;
-                    }
-
-                    break;
-
-                case OutputType.Cil:
-                    try
-                    {
-                        output = enumDefinition.ExportCil(
-                            assemblyName: enumName,
-                            enumNamespace,
-                            headerMode,
-                            indentMode,
-                            indentSize,
-                            newlineMode,
-                            storageType,
-                            curlyBracketMode);
-                    }
-                    catch (Exception e)
-                    {
-                        this.logger.LogCritical($"Failed to generate cil: {e.Message}");
-                        return 1;
-                    }
-
-                    break;
-            }
+            // Export.
+            var output = Export(enumDefinition);
+            if (output == null)
+                return 1;
 
             // Save to file.
             try
@@ -180,9 +139,8 @@ namespace EnumGenerator.Cli
                     fullOutputPath = $"{fullOutputPath}{GetDesiredExtension(outputType)}";
                 Directory.GetParent(fullOutputPath).Create();
                 using (var stream = new FileStream(fullOutputPath, FileMode.Create, FileAccess.Write))
-                using (var writer = new StreamWriter(stream, Utf8NoBom))
                 {
-                    writer.Write(output);
+                    stream.Write(output);
                 }
 
                 this.logger.LogInformation($"Written enum to: '{fullOutputPath}'");
@@ -194,6 +152,53 @@ namespace EnumGenerator.Cli
             }
 
             return 0;
+
+            byte[] Export(EnumDefinition enumDef)
+            {
+                switch (outputType)
+                {
+                    case OutputType.CSharp:
+                        try
+                        {
+                            return Utf8NoBom.GetBytes(enumDef.ExportCSharp(
+                                enumNamespace,
+                                headerMode,
+                                indentMode,
+                                indentSize,
+                                newlineMode,
+                                storageType,
+                                curlyBracketMode));
+                        }
+                        catch (Exception e)
+                        {
+                            this.logger.LogCritical($"Failed to generate csharp: {e.Message}");
+                            return null;
+                        }
+
+                    case OutputType.Cil:
+                        try
+                        {
+                            return Utf8NoBom.GetBytes(enumDef.ExportCil(
+                                assemblyName: enumName,
+                                enumNamespace,
+                                headerMode,
+                                indentMode,
+                                indentSize,
+                                newlineMode,
+                                storageType,
+                                curlyBracketMode));
+                        }
+                        catch (Exception e)
+                        {
+                            this.logger.LogCritical($"Failed to generate cil: {e.Message}");
+                            return null;
+                        }
+
+                    default:
+                        this.logger.LogCritical($"Unsupported output-type '{outputType}'");
+                        return null;
+                }
+            }
 
             string GetInputJson()
             {
