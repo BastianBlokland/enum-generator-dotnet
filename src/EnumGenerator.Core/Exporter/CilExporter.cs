@@ -68,14 +68,15 @@ namespace EnumGenerator.Core.Exporter
             builder.WriteLine(".assembly extern mscorlib { }");
             builder.WriteEndLine();
 
-            // Add module info.
-            builder.WriteLine($".module {assemblyName}.dll");
-
             // Add assembly info.
             builder.Write($".assembly {assemblyName}");
             StartScope(builder, curlyBracketMode);
             builder.WriteLine(".ver 1:0:0:0");
             EndScope(builder);
+            builder.WriteEndLine();
+
+            // Add module info.
+            builder.WriteLine($".module {assemblyName}.dll");
             builder.WriteEndLine();
 
             // Add enum class.
