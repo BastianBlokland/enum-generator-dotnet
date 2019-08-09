@@ -15,7 +15,9 @@ Invoke the tool using the `enum-generator` alias
 enum-generator -i example.enum -o example.g.cs
 ```
 
+To generate a fsharp file use the `-t fsharp` argument.
 To generate a cil file use the `-t cil` argument.
+To generate a dll file use the `-t classlibrary` argument.
 
 ## Help
 For additional info on the arguments run `enum-generator --help`
