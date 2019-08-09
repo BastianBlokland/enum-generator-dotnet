@@ -142,6 +142,38 @@ namespace EnumGenerator.Core.Exporter
         }
 
         /// <summary>
+        /// Get the fsharp keyword for the given storage-type.
+        /// </summary>
+        /// <param name="storageType">Storage-type to get the keyword for</param>
+        /// <returns>Fsharp keyword for the given storage-type</returns>
+        public static string GetFSharpLiteralSuffix(this StorageType storageType)
+        {
+            switch (storageType)
+            {
+                case StorageType.Implicit:
+                    return "l";
+                case StorageType.Unsigned8Bit:
+                    return "uy";
+                case StorageType.Signed8Bit:
+                    return "y";
+                case StorageType.Signed16Bit:
+                    return "s";
+                case StorageType.Unsigned16Bit:
+                    return "us";
+                case StorageType.Signed32Bit:
+                    return "l";
+                case StorageType.Unsigned32Bit:
+                    return "ul";
+                case StorageType.Signed64Bit:
+                    return "L";
+                case StorageType.Unsigned64Bit:
+                    return "UL";
+                default:
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no suffix in fsharp", nameof(storageType));
+            }
+        }
+
+        /// <summary>
         /// Get the dotnet type for the given storage-type.
         /// </summary>
         /// <param name="storageType">Storage-type to get the type for</param>

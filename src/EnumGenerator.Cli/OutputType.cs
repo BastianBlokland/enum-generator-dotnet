@@ -18,6 +18,11 @@ namespace EnumGenerator.Cli
         /// <summary>
         /// Produce a class-library (.dll) file.
         /// </summary>
-        ClassLibrary = 2
+        ClassLibrary = 2,
+
+        /// <summary>
+        /// Produce a FSharp (.fs) source file.
+        /// </summary>
+        FSharp = 3,
     }
 }

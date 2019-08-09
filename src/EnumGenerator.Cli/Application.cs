@@ -175,6 +175,22 @@ namespace EnumGenerator.Cli
                             return null;
                         }
 
+                    case OutputType.FSharp:
+                        try
+                        {
+                            return Utf8NoBom.GetBytes(enumDef.ExportFSharp(
+                                string.IsNullOrEmpty(enumNamespace) ? "Generated" : enumNamespace,
+                                headerMode,
+                                indentSize,
+                                newlineMode,
+                                storageType));
+                        }
+                        catch (Exception e)
+                        {
+                            this.logger.LogCritical($"Failed to generate fsharp: {e.Message}");
+                            return null;
+                        }
+
                     case OutputType.Cil:
                         try
                         {
@@ -269,6 +285,8 @@ namespace EnumGenerator.Cli
             {
                 case OutputType.CSharp:
                     return ".cs";
+                case OutputType.FSharp:
+                    return ".fs";
                 case OutputType.Cil:
                     return ".il";
                 case OutputType.ClassLibrary:
@@ -284,6 +302,8 @@ namespace EnumGenerator.Cli
             {
                 case OutputType.CSharp:
                     return ".g.cs";
+                case OutputType.FSharp:
+                    return ".g.fs";
                 case OutputType.Cil:
                     return ".g.il";
                 case OutputType.ClassLibrary:
