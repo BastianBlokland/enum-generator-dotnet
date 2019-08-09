@@ -18,6 +18,17 @@
     --comment 'Enum with all the months.'"/>
   </Target>
 
+  <Target Name="GenerateMonthsEnumFSharp" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet enum-generator \
+    -i months.json \
+    -o Months.g.fs \
+    -t fsharp \
+    --entryname name \
+    --entryvalue number \
+    --namespace Example \
+    --comment 'Enum with all the months.'"/>
+  </Target>
+
   <Target Name="GenerateMonthsEnumCil" BeforeTargets="BeforeBuild">
     <Exec Command="dotnet enum-generator \
     -i months.json \
@@ -36,6 +47,15 @@
     --entryname Name"/>
   </Target>
 
+  <Target Name="GenerateExpensiveProductsEnumFSharp" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet enum-generator \
+    -i products.json \
+    -o ExpensiveProducts.g.fs \
+    -t fsharp \
+    --collection '..Products[?(@.Price >= 10)]' \
+    --entryname Name"/>
+  </Target>
+
   <Target Name="GenerateExpensiveProductsEnumCil" BeforeTargets="BeforeBuild">
     <Exec Command="dotnet enum-generator \
     -i products.json \
@@ -47,7 +67,7 @@
 
   <ItemGroup>
     <!-- Tools -->
-    <DotNetCliToolReference Include="EnumGenerator.Cli" Version="3.3.*" />
+    <DotNetCliToolReference Include="EnumGenerator.Cli" Version="3.4.*" />
   </ItemGroup>
 
 </Project>

@@ -4,12 +4,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.CodeDom.Compiler;
+namespace Generated
 
-[GeneratedCode("EnumGenerator.Core", "3.4.1206.0")]
-public enum ExpensiveProducts
-{
-    Drill = 0,
+open System.CodeDom.Compiler
 
-    Hammer = 1,
-}
+[<GeneratedCode("EnumGenerator.Core", "3.4.1206.0")>]
+type ExpensiveProducts =
+    | Drill = 0
+    | Hammer = 1
