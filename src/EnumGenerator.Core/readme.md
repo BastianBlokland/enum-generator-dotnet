@@ -1,6 +1,6 @@
 # **EnumGenerator** Core library.
 
-Library that can be used to generate c# / f# / cil enum files based on json files.
+Library that can be used to generate c# / f# / vb / cil enum files based on json files.
 
 Can be used for more complex integration into a build pipeline, for simple use-cases consider one of the pre-made tools:
 * [**EnumGenerator.Cli**](https://www.nuget.org/packages/EnumGenerator.Cli/)
@@ -48,6 +48,11 @@ or
 4. Export the fsharp enum:
 ```c#
 var fsharp = enumDefinition.ExportFSharp(@namespace: "Generated");
+```
+or
+4. Export the vb enum:
+```c#
+var vb = enumDefinition.ExportVisualBasic();
 ```
 or
 4. Export the cil enum:

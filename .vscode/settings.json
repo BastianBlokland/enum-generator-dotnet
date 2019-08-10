@@ -14,7 +14,8 @@
         "nuget",
         "rtspecialname",
         "unduplicate",
-        "unduplicated"
+        "unduplicated",
+        "visualbasic"
     ],
     // Search settings
     "search.useIgnoreFiles": false,
