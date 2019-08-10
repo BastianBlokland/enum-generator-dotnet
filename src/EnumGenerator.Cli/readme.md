@@ -1,6 +1,6 @@
 # **EnumGenerator** Cli tool.
 
-Can be used to generate c# / f# / cil enum files from json files.
+Can be used to generate c# / f# / vb / cil enum files from json files.
 
 ## Installation
 
@@ -22,6 +22,7 @@ There two ways to invoke the tool:
 ```
 
 To generate a fsharp file use the `-t fsharp` argument.
+To generate a vb file use the `-t visualbasic` argument.
 To generate a cil file use the `-t cil` argument.
 To generate a dll file use the `-t classlibrary` argument.
 

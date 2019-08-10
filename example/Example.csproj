@@ -29,6 +29,18 @@
     --comment 'Enum with all the months.'"/>
   </Target>
 
+  <Target Name="GenerateMonthsEnumVisualBasic" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet enum-generator \
+    -i months.json \
+    -o Months.g.vb \
+    -t visualbasic \
+    --entryname name \
+    --entryvalue number \
+    --entrycomment trivia \
+    --namespace Example \
+    --comment 'Enum with all the months.'"/>
+  </Target>
+
   <Target Name="GenerateMonthsEnumCil" BeforeTargets="BeforeBuild">
     <Exec Command="dotnet enum-generator \
     -i months.json \
@@ -43,6 +55,15 @@
     <Exec Command="dotnet enum-generator \
     -i products.json \
     -o ExpensiveProducts.g.cs \
+    --collection '..Products[?(@.Price >= 10)]' \
+    --entryname Name"/>
+  </Target>
+
+  <Target Name="GenerateExpensiveProductsEnumVisualBasic" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet enum-generator \
+    -i products.json \
+    -o ExpensiveProducts.g.vb \
+    -t visualbasic \
     --collection '..Products[?(@.Price >= 10)]' \
     --entryname Name"/>
   </Target>

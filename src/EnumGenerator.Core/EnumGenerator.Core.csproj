@@ -10,7 +10,7 @@
 
     <PackageId>EnumGenerator.Core</PackageId>
     <Title>Enum generator framework</Title>
-    <Description>Framework used by the enum generator cli</Description>
+    <Description>Framework for generating c# / f# / vb / cil enums</Description>
     <Authors>Bastian Blokland</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-dotnet</RepositoryUrl>

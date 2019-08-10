@@ -12,7 +12,7 @@
     <PackageId>EnumGenerator.Cli</PackageId>
     <PackageType>DotnetCliTool</PackageType>
     <Title>Enum generator cli tool</Title>
-    <Description>Cli-tool that can be used to create a c# enum based on a json file</Description>
+    <Description>Cli-tool that can be used to create a c# / f# / vb / cil enum based on a json file</Description>
     <Authors>Bastian Blokland</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/BastianBlokland/enum-generator-dotnet</RepositoryUrl>
