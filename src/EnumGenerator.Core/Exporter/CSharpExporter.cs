@@ -105,10 +105,11 @@ namespace EnumGenerator.Core.Exporter
                 builder.Write($"public enum {enumDefinition.Identifier} : {storageType.GetCSharpKeyword()}");
             builder.StartScope(curlyBracketMode);
 
+            var newlineBetweenEntries = enumDefinition.HasAnyEntryComments;
             var first = true;
             foreach (var entry in enumDefinition.Entries)
             {
-                if (!first)
+                if (!first && newlineBetweenEntries)
                     builder.WriteEndLine();
                 first = false;
 
