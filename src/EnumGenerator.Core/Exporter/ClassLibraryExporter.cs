@@ -55,7 +55,7 @@ namespace EnumGenerator.Core.Exporter
                 moduleName: $"{assemblyName}.dll",
                 ModuleKind.Dll))
             {
-                // Get a references.
+                // Get the required references.
                 var enumUnderlyingType = storageType.GetCecilTypeReference(
                     typeSystem: assemblyDefinition.MainModule.TypeSystem);
                 var enumBaseType = new TypeReference(
