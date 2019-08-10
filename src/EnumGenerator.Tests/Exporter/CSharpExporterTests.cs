@@ -8,7 +8,7 @@ namespace EnumGenerator.Tests.Builder
 {
     public sealed class CSharpExporterTests
     {
-        private const string Version = "3.4.0.0";
+        private const string Version = "3.5.0.0";
 
         [Fact]
         public void ThrowsIfExportedWithInvalidNamespace() => Assert.Throws<InvalidNamespaceException>(() =>
@@ -54,7 +54,6 @@ using System.CodeDom.Compiler;
 public enum TestEnum
 {{
     A = 1,
-
     B = 2,
 }}
 ",
@@ -85,7 +84,6 @@ using System.CodeDom.Compiler;
 public enum TestEnum
 {{
     A = -1,
-
     B = -2,
 }}
 ",
@@ -157,7 +155,6 @@ using System.CodeDom.Compiler;
 public enum TestEnum
 {{
 	A = 1,
-
 	B = 2,
 }}
 ",
@@ -188,7 +185,6 @@ using System.CodeDom.Compiler;
 public enum TestEnum
 {{
   A = 1,
-
   B = 2,
 }}
 ",
@@ -221,7 +217,6 @@ namespace A.B.C
     public enum TestEnum
     {{
         A = 1,
-
         B = 2,
     }}
 }}
@@ -253,7 +248,6 @@ using System.CodeDom.Compiler;
 public enum TestEnum : byte
 {{
     A = 1,
-
     B = 2,
 }}
 ",
@@ -284,7 +278,6 @@ namespace Test {{
     [GeneratedCode(""EnumGenerator.Core"", ""{Version}"")]
     public enum TestEnum {{
         A = 1,
-
         B = 2,
     }}
 }}
@@ -310,7 +303,6 @@ $@"using System.CodeDom.Compiler;
 public enum TestEnum
 {{
     A = 1,
-
     B = 2,
 }}
 ",

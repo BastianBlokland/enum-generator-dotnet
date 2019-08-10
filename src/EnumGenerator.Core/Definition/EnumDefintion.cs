@@ -42,6 +42,12 @@ namespace EnumGenerator.Core.Definition
         /// </summary>
         public ImmutableArray<EnumEntry> Entries { get; }
 
+        /// <summary>
+        /// Does any entry have a comment.
+        /// </summary>
+        public bool HasAnyEntryComments =>
+            this.Entries.Any(e => !string.IsNullOrEmpty(e.Comment));
+
         /// <summary>Check if two instances are equal.</summary>
         /// <param name="a">Item to compare to B</param>
         /// <param name="b">Item to compare to A</param>
