@@ -191,6 +191,23 @@ namespace EnumGenerator.Cli
                             return null;
                         }
 
+                    case OutputType.VisualBasic:
+                        try
+                        {
+                            return Utf8NoBom.GetBytes(enumDef.ExportVisualBasic(
+                                enumNamespace,
+                                headerMode,
+                                indentMode,
+                                indentSize,
+                                newlineMode,
+                                storageType));
+                        }
+                        catch (Exception e)
+                        {
+                            this.logger.LogCritical($"Failed to generate csharp: {e.Message}");
+                            return null;
+                        }
+
                     case OutputType.Cil:
                         try
                         {
@@ -287,6 +304,8 @@ namespace EnumGenerator.Cli
                     return ".cs";
                 case OutputType.FSharp:
                     return ".fs";
+                case OutputType.VisualBasic:
+                    return ".vb";
                 case OutputType.Cil:
                     return ".il";
                 case OutputType.ClassLibrary:
@@ -304,6 +323,8 @@ namespace EnumGenerator.Cli
                     return ".g.cs";
                 case OutputType.FSharp:
                     return ".g.fs";
+                case OutputType.VisualBasic:
+                    return ".g.vb";
                 case OutputType.Cil:
                     return ".g.il";
                 case OutputType.ClassLibrary:

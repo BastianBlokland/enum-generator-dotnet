@@ -110,6 +110,38 @@ namespace EnumGenerator.Core.Exporter
         }
 
         /// <summary>
+        /// Get the visual-basic keyword for the given storage-type.
+        /// </summary>
+        /// <param name="storageType">Storage-type to get the keyword for</param>
+        /// <returns>Visual-basic keyword for the given storage-type</returns>
+        public static string GetVisualBasicKeyword(this StorageType storageType)
+        {
+            switch (storageType)
+            {
+                case StorageType.Implicit:
+                    return "Integer";
+                case StorageType.Unsigned8Bit:
+                    return "Byte";
+                case StorageType.Signed8Bit:
+                    return "SByte";
+                case StorageType.Signed16Bit:
+                    return "Short";
+                case StorageType.Unsigned16Bit:
+                    return "UShort";
+                case StorageType.Signed32Bit:
+                    return "Integer";
+                case StorageType.Unsigned32Bit:
+                    return "UInteger";
+                case StorageType.Signed64Bit:
+                    return "Long";
+                case StorageType.Unsigned64Bit:
+                    return "ULong";
+                default:
+                    throw new ArgumentException($"Storage-type: '{storageType}' has no keyword in visual-basic", nameof(storageType));
+            }
+        }
+
+        /// <summary>
         /// Get the cil keyword for the given storage-type.
         /// </summary>
         /// <param name="storageType">Storage-type to get the keyword for</param>

@@ -24,5 +24,10 @@ namespace EnumGenerator.Cli
         /// Produce a FSharp (.fs) source file.
         /// </summary>
         FSharp = 3,
+
+        /// <summary>
+        /// Produce a VisualBasic (.vb) source file.
+        /// </summary>
+        VisualBasic = 4,
     }
 }
