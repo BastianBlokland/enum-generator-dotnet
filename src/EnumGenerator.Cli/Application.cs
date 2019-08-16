@@ -18,7 +18,7 @@ namespace EnumGenerator.Cli
     {
         private static readonly Encoding Utf8NoBom = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
-        private readonly ILogger logger;
+        private readonly Core.ILogger logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Application"/> class.
@@ -29,7 +29,7 @@ namespace EnumGenerator.Cli
             if (logger == null)
                 throw new ArgumentNullException(nameof(logger));
 
-            this.logger = logger;
+            this.logger = new LoggerAdapter(logger);
         }
 
         /// <summary>
