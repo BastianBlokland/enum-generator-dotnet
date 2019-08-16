@@ -8,7 +8,7 @@ namespace EnumGenerator.Tests.Builder
 {
     public sealed class FSharpExporterTests
     {
-        private const string Version = "3.5.0.0";
+        private const string Version = "4.0.0.0";
 
         [Fact]
         public void ThrowsIfExportedWithInvalidNamespace() => Assert.Throws<InvalidNamespaceException>(() =>
