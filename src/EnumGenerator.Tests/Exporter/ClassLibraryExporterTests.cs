@@ -103,5 +103,18 @@ namespace EnumGenerator.Tests.Builder
             Assert.Equal((sbyte)1, (sbyte)System.Enum.GetValues(enumType).GetValue(0));
             Assert.Equal((sbyte)-1, (sbyte)System.Enum.GetValues(enumType).GetValue(1));
         }
+
+        [Fact]
+        public void ExportIsDeterministic()
+        {
+            var builder = new EnumBuilder("TestEnum");
+            builder.PushEntry("A", 1);
+            builder.PushEntry("B", 2);
+            var enumDef = builder.Build();
+
+            var export1 = enumDef.ExportClassLibrary(assemblyName: "Test");
+            var export2 = enumDef.ExportClassLibrary(assemblyName: "Test");
+            Assert.Equal(export1, export2);
+        }
     }
 }

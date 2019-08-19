@@ -55,6 +55,10 @@ namespace EnumGenerator.Core.Exporter
                 moduleName: $"{assemblyName}.dll",
                 ModuleKind.Dll))
             {
+                // Set the module id to a hash of the enum-definition, this way it should be pretty
+                // unique while still being deterministic.
+                assemblyDefinition.MainModule.Mvid = new Guid(enumDefinition.Get128BitHash());
+
                 // Get the required references.
                 var enumUnderlyingType = storageType.GetCecilTypeReference(
                     typeSystem: assemblyDefinition.MainModule.TypeSystem);
@@ -101,7 +105,13 @@ namespace EnumGenerator.Core.Exporter
                 // Write the pe dll file.
                 using (var memoryStream = new MemoryStream())
                 {
-                    assemblyDefinition.Write(memoryStream);
+                    // Supply '0' as the timestamp to make the export deterministic.
+                    var writerParams = new WriterParameters
+                    {
+                        Timestamp = 0
+                    };
+
+                    assemblyDefinition.Write(memoryStream, writerParams);
                     return memoryStream.ToArray();
                 }
             }
