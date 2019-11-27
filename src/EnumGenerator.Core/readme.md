@@ -11,11 +11,11 @@ Can be used for more complex integration into a build pipeline, for simple use-c
 There are two ways to add the nuget package:
 1. Run:
 ```bash
-dotnet add package EnumGenerator.Core --version '4.1.*'
+dotnet add package EnumGenerator.Core --version '5.0.*'
 ```
 2. Add the following to a `ItemGroup` section of your csproj:
 ```xml
-<PackageReference Include="EnumGenerator.Core" Version="4.1.*" />
+<PackageReference Include="EnumGenerator.Core" Version="5.0.*" />
 ```
 
 ## Usage
