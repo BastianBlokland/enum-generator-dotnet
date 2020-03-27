@@ -22,7 +22,7 @@
     <PackageReference Include="XunitXML.TestLogger" Version="2.0.0" />
 
     <!-- Test coverage analysis -->
-    <PackageReference Include="coverlet.msbuild" Version="2.6.0">
+    <PackageReference Include="coverlet.msbuild" Version="2.8.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
