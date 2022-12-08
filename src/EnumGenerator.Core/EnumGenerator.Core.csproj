@@ -27,7 +27,7 @@
     <!-- Dependencies -->
     <PackageReference Include="Mono.Cecil" Version="0.10.4" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 
     <!-- Sourcelink -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
